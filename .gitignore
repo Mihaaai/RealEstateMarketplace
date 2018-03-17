@@ -101,5 +101,5 @@ ENV/
 .mypy_cache/
 
 # database extensions
-.sqlite3
+*.sqlite3
 
