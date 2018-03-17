@@ -2,7 +2,7 @@ from django.db import models
 
 
 class User(models.Model):
-    first_name  = models.CharField(max_length=32)
+    first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     phone_number = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
@@ -23,8 +23,8 @@ class Estate(models.Model):
     estimated_price = models.FloatField(blank=True)
     year = models.IntegerField()
     distance_to_centre = models.FloatField()
-    
-    
+
+
 class Listing(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=500)
@@ -35,11 +35,12 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.title
-        
-        
+
+
 class FavoriteListing(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
+
 
 class Message(models.Model):
     message = models.TextField()
@@ -47,7 +48,6 @@ class Message(models.Model):
     receiver_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
-    
 
     def __str__(self):
         return self.message
