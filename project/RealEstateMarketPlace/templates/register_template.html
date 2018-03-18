@@ -1,9 +1,9 @@
-{% extends "template.html" %}
+{% extends 'template.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block content %}
-<h1>Login</h1>
+<h1>Register</h1>
 
 {% if form.errors %}
 <div>
@@ -14,7 +14,7 @@
 <form method="POST" enctype="multipart/formdata" class="form">
     {% csrf_token %} {{ form.as_p }}
 
-    <button type="submit">Login</button>
+    <button type="submit">Register</button>
 
 </form>
 
