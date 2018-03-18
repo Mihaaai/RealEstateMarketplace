@@ -22,10 +22,6 @@ def LoginView(request):
                       user=user)
                 return redirect('default')
 
-            else:
-                context['error'] = 'It was an error'
-
-
     context['form'] = form
 
     return render(request, 'login_template.html', context)
