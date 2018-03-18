@@ -102,4 +102,4 @@ ENV/
 
 # database extensions
 *.sqlite3
-
+/project/RealEstateMarketPlace/migrations

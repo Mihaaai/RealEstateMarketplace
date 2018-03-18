@@ -4,6 +4,7 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
 
+
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'register_template.html'

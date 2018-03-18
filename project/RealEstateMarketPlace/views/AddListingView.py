@@ -3,5 +3,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'template.html')
+
+def AddListingView(request):
+    return render(request, 'add_listing_template.html')  # to be replaced in the near future by Ghido
