@@ -1,4 +1,3 @@
-from ..models import *
 from ..forms import LoginForm
 
 from django import forms
