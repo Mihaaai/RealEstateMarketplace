@@ -1,0 +1,43 @@
+{% extends "template.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>All listings</h2>
+
+{% if form.errors %}
+<div>
+    {{ error }}
+</div>
+{% endif %}
+
+{% if listings|length %}
+
+<table>
+	<tr>
+		<th> Title </th>
+		<th> Description </th>
+		<th> Phone number </th>
+		<th> Created at </th>
+		<th> Updated at </th>
+	</tr>
+
+	{% for listing in listings %}
+	<tr>
+		<td> {{listing.title}} </td>
+		<td> {{listing.description}} </td>
+		<td> {{listing.phone_number}} </td>
+		<td> {{listing.created}} </td>
+		<td> {{listing.updated}} </td>
+	</tr>
+	{% endfor %}
+
+</table>
+
+{% else %}
+
+<h5> No listings available.</h5>
+
+{% endif %}
+
+{% endblock %}
