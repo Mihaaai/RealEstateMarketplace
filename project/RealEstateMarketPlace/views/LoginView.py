@@ -4,6 +4,7 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
+
 def LoginView(request):
     context = {}
 
@@ -24,7 +25,6 @@ def LoginView(request):
 
             else:
                 context['error'] = 'It was an error'
-
 
     context['form'] = form
 
