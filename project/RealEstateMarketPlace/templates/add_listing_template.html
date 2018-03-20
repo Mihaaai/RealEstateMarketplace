@@ -1,27 +1,21 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'template.html' %}
 
-    <head>
-        <title>{% block title %}Real Market Estate{% endblock %}</title>
-    </head>
+{% block title %}Add listing{% endblock %}
 
-    <body>
+{% block content %}
+<h1>Add listing</h1>
 
-        <div>
-            {% block navbar %}
-                {% if user.is_authenticated %}
-                    <a href='/logout/'>Logut</a>
-                {% else %}
-                    <a href='/login/'>Login</a>
-                    <a href='/register/'>Register</a>
-                {% endif %}
-            {% endblock %}
-        </div>
-        <div>
-        {% block content %}
-        {% endblock %}
-        </div>
-    </body>
+{% if form.errors %}
+<div>
+    {{ error }}
+</div>
+{% endif %}
 
-</html>
+<form method="POST" enctype="multipart/formdata" class="form">
+    {% csrf_token %} {{ form.as_p }}
+
+    <button type="submit">Add</button>
+
+</form>
+
+{% endblock %}
