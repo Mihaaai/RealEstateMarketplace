@@ -3,15 +3,17 @@ from django.contrib.auth.models import User
 
 
 class Estate(models.Model):
-    address = models.CharField(max_length=500)
-    price = models.FloatField()
-    rooms = models.IntegerField()
-    floor = models.IntegerField(default=0)
-    size = models.FloatField()
-    estimated_price = models.FloatField(blank=True)
-    year = models.IntegerField()
-    distance_to_centre = models.FloatField()
+    address = models.TextField(max_length=500)
+    price = models.FloatField(default=0)
+    rooms = models.PositiveSmallIntegerField(default=0)
+    floor = models.PositiveSmallIntegerField(default=0)
+    size = models.FloatField(default=0)
+    estimated_price = models.FloatField(null=True)
+    year = models.PositiveIntegerField(default=1900)
+    distance_to_centre = models.FloatField(null=True)
 
+    def __str__(self):
+        return self.address
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
@@ -20,7 +22,7 @@ class Listing(models.Model):
     estate_id = models.ForeignKey(Estate, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    phone_number = models.CharField(max_length=20, unique=True, null=True)
+    phone_number = models.CharField(max_length=20, unique=True)
     is_closed = models.BooleanField(default=False)
 
     def __str__(self):

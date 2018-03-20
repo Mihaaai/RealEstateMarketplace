@@ -1,6 +1,7 @@
 from ..forms import LoginForm
 
 from django import forms
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
@@ -21,7 +22,11 @@ def LoginView(request):
             if user:
                 login(request=request,
                       user=user)
-                return redirect('default')
+                next_url = request.GET.get('next')
+                if next_url:
+                    return HttpResponseRedirect(next_url)
+                else:
+                    return redirect('default')
 
     context['form'] = form
 
