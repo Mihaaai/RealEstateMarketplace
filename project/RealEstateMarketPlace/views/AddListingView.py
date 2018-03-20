@@ -1,8 +1,21 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.views.generic import CreateView
+from django.shortcuts import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
+from ..forms import AddListingForm
+from ..models import Listing
 
 
-def AddListingView(request):
-    return render(request, 'add_listing_template.html')  # to be replaced in the near future by Ghido
+class AddListingView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    succes_url = '/'
+    form_class = AddListingForm
+    template_name = 'add_listing_template.html'
+    model = Listing
+
+    def get_initial(self):
+        return {
+            'user_id': self.request.user
+        }
+
+
