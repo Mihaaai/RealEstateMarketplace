@@ -3,7 +3,16 @@ from django.contrib.auth.models import User
 
 
 class Estate(models.Model):
-    address = models.TextField(max_length=500)
+    CITY_CHOISES = (
+        ('Bucuresti', 'Bucuresti'),
+        ('Timisoara', 'Timisoara'),
+        ('Iasi', 'Iasi'),
+        ('Ploiesti', 'Ploiesti'),
+        ('Pitesti', 'Pitesti'),
+        ('Cluj', 'Cluj'),
+    )
+
+    city = models.CharField(max_length=20, choices=CITY_CHOISES)
     price = models.FloatField(default=0)
     rooms = models.PositiveSmallIntegerField(default=0)
     floor = models.PositiveSmallIntegerField(default=0)
@@ -11,10 +20,8 @@ class Estate(models.Model):
     estimated_price = models.FloatField(null=True)
     year = models.PositiveIntegerField(default=1900)
     distance_to_centre = models.FloatField(null=True)
-    image = models.ImageField(upload_to='RealEstateMarketPlace/images', null=True, max_length=None)
+    image = models.ImageField(upload_to='images', null=True, max_length=None)
 
-    def __str__(self):
-        return self.address
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)

@@ -1,32 +1,26 @@
 {% extends "template.html" %}
+{% load static %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Listings{% endblock %}
 
 {% block content %}
 <h2>All listings</h2>
 
-{% if object_list|length %}
+{% if listings|length %}
 
-<table>
-	<tr>
-		<th> Title </th>
-		<th> Description </th>
-		<th> Phone number </th>
-		<th> Created at </th>
-		<th> Updated at </th>
-	</tr>
-
+<div class='container'>
 	{% for listing in listings %}
-	<tr>
-		<td> {{listing.title}} </td>
-		<td> {{listing.description}} </td>
-		<td> {{listing.phone_number}} </td>
-		<td> {{listing.created}} </td>
-		<td> {{listing.updated}} </td>
-	</tr>
+	<a class='apartment' href='#' style="background-image:url('{{ listing.estate_id.image.url }}');">
+    	<div class='details-container'>
+      		<div class='price-container-wrapper'>
+        		<div class='city'>{{ listing.estate_id.city }}</div>
+        		<div class='price'>{{ listing.estate_id.price }}</div>
+      		</div>
+    	</div>
+  	</a>
 	{% endfor %}
 
-</table>
+</div>
 
 {% else %}
 
