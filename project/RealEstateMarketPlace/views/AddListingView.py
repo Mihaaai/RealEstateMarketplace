@@ -8,7 +8,7 @@ from ..models import Listing
 
 class AddListingView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
-    succes_url = '/'
+    success_url = '/'
     form_class = AddListingForm
     template_name = 'add_listing_template.html'
     model = Listing
