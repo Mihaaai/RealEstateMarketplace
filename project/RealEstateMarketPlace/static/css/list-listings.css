@@ -1,0 +1,58 @@
+.apartment{
+  height:200px;
+  width:300px;
+  background-color:white;
+  margin: 5px;
+  position: relative;
+  flex-grow:1;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container{
+  height:100%;
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.details-container{
+  width:100%;
+  background-color: rgba(0,0,0,0.5);
+  height:20%;
+  position:absolute;
+  transition: height 0.5s;
+}
+
+.price-container-wrapper{
+  position: absolute;
+  font-size:16px;
+  color: white;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  text-align:center;
+}
+
+.apartment:hover >.details-container{
+    height: 40%;
+  }
+
+.apartment:hover .city{
+  display: block;
+}
+
+.city{
+  margin-bottom:10px;
+  display:none;
+  font-size:18px;
+}
+
+.price::after{
+  content: ' RON';
+}
