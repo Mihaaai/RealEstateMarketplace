@@ -24,14 +24,25 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Estate(models.Model):
-    address = models.CharField(max_length=500)
-    price = models.FloatField()
-    rooms = models.IntegerField()
-    floor = models.IntegerField(default=0)
-    size = models.FloatField()
-    estimated_price = models.FloatField(blank=True)
-    year = models.IntegerField()
-    distance_to_centre = models.FloatField()
+    CITY_CHOISES = (
+        ('Bucuresti', 'Bucuresti'),
+        ('Timisoara', 'Timisoara'),
+        ('Iasi', 'Iasi'),
+        ('Ploiesti', 'Ploiesti'),
+        ('Pitesti', 'Pitesti'),
+        ('Cluj', 'Cluj'),
+    )
+
+    city = models.CharField(max_length=20, choices=CITY_CHOISES)
+    address = models.CharField(max_length=50, null=True)
+    price = models.FloatField(default=0)
+    rooms = models.PositiveSmallIntegerField(default=0)
+    floor = models.PositiveSmallIntegerField(default=0)
+    size = models.FloatField(default=0)
+    estimated_price = models.FloatField(null=True)
+    year = models.PositiveIntegerField(default=1900)
+    distance_to_centre = models.FloatField(null=True)
+    image = models.ImageField(upload_to='images', null=True, max_length=None)
 
 
 class Listing(models.Model):
@@ -41,6 +52,7 @@ class Listing(models.Model):
     estate_id = models.ForeignKey(Estate, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    phone_number = models.CharField(max_length=20, unique=True)
     is_closed = models.BooleanField(default=False)
 
     def __str__(self):
