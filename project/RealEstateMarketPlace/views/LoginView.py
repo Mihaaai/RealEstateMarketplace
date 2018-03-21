@@ -1,6 +1,4 @@
 from ..forms import LoginForm
-
-from django import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
@@ -15,7 +13,7 @@ def LoginView(request):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            user = authenticate(username=form.cleaned_data['username'],
+            user = authenticate(email=form.cleaned_data['email'],
                                 password=form.cleaned_data['password'])
 
             if user:
