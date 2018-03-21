@@ -4,6 +4,15 @@ from django.contrib.auth.models import User
 
 from ..models import Estate, Listing
 
+CITY_CHOISES = (
+        ('Bucuresti', 'Bucuresti'),
+        ('Timisoara', 'Timisoara'),
+        ('Iasi', 'Iasi'),
+        ('Ploiesti', 'Ploiesti'),
+        ('Pitesti', 'Pitesti'),
+        ('Cluj', 'Cluj'),
+    )
+
 class AddListingForm(forms.ModelForm):
 
     class Meta:
@@ -12,7 +21,7 @@ class AddListingForm(forms.ModelForm):
 
     user_id = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)
 
-    address = forms.CharField(widget=forms.Textarea, required=True)
+    city = forms.ChoiceField(choices=CITY_CHOISES, required=True)
     image = forms.ImageField(required=False)
     rooms = forms.IntegerField(required=True, min_value=0, max_value=10)
     floor = forms.IntegerField(required=True, min_value=0, max_value=20)
@@ -23,7 +32,7 @@ class AddListingForm(forms.ModelForm):
 
     @transaction.atomic
     def save(self):
-        estate = Estate(address=self.cleaned_data['address'],
+        estate = Estate(city=self.cleaned_data['city'],
                         rooms=self.cleaned_data['rooms'],
                         floor=self.cleaned_data['floor'],
                         size=self.cleaned_data['size'],
