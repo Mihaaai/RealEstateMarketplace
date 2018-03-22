@@ -1,0 +1,13 @@
+<!-- Not really working. May be due to an issue regarding ALLOWD_HOSTS setting -->
+
+{% extends 'template.html' %}
+
+{% block title %}500 Server Error{% endblock %}
+
+{% block content %}
+<div>
+    <h1> Sorry for the inconvenience. And thanks for discovering a bug.</h1>
+    <a href="{%url homepage%}">Click here to get back</a> to housings, supposed you are not into more debugging.
+</div>
+
+{% endblock %}

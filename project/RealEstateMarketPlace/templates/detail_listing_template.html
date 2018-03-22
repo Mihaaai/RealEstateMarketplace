@@ -1,0 +1,84 @@
+{% extends "template.html" %}
+
+{% block title %}Listing Details{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+	.my_details > div > p {display: inline-block;}
+</style>
+{%endblock%}
+
+{% block content %}
+
+{% if listing %}
+<div>
+	<a href="{% url 'delete_listing' listing.id %}">Delete</a>
+	<a href="{% url 'add_favorite_listing' %}"> Add to favorites</a>
+	<div class="my_details">	
+		<div>
+			<p>Title: </p>
+			<p>{{listing.title}}</p>
+		</div>
+		<div>
+			<p>Description: </p>
+			<p>{{listing.description}}</p>
+		</div>
+		<div>
+			<p>Last updated at: </p>
+			<p> {{listing.updated.year}}.{{listing.updated.month}}.{{listing.updated.day}}</p>
+		</div>
+		<div>
+			<p>City: </p>
+			<p>{{listing.estate_id.city}}</p>
+		</div>
+		<div>
+			<p>Adress: </p>
+			<p>{{listing.estate_id.address}}</p>
+		</div>
+		<div>
+			<p>Price: </p>
+			<p>{{listing.estate_id.price}}</p>
+		</div>
+		<div>
+			<p>Rooms: </p>
+			<p>{{listing.estate_id.rooms}}</p>
+		</div>
+		<div>
+			<p>Size: </p>
+			<p>{{listing.estate_id.size}}</p>
+		</div>
+		<div>
+			<p>Rooms: </p>
+			<p>{{listing.estate_id.estimated_price}}</p>
+		</div>
+		<div>
+			<p>Built year: </p>
+			<p>{{listing.estate_id.year}}</p>
+		</div>
+		<div>
+			<p>Distance to centre: </p>
+			<p>{{listing.estate_id.distance_to_centre}}</p>
+		</div>
+		<div>
+			<p>Email: </p>
+			<p>{{listing.user_id.email}}</p>
+		</div>
+		<div>
+			<p>Phone: </p>
+			<p>{{listing.user_id.phone_number}}</p>
+		</div>
+		<div>
+			<p>User: </p>
+			<p>{{listing.user_id.first_name}}</p>
+			<p>{{listing.user_id.last_name}}</p>		
+		</div>
+	</div>  	
+</div>
+
+{% else %}
+
+<h5> No listing found. Please try another.</h5>
+
+{% endif %}
+
+{% endblock %}

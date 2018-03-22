@@ -1,0 +1,13 @@
+<!-- Not really working. May be due to an issue regarding ALLOWD_HOSTS setting -->
+
+{% extends 'template.html' %}
+
+{% block title %}404 Not found{% endblock %}
+
+{% block content %}
+<div>
+    <h1> It seems like you got lost.</h1>
+    <a href="{%url homepage%}">Click here to get back</a>
+</div>
+
+{% endblock %}
