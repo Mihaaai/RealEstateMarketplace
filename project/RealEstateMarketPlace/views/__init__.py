@@ -4,4 +4,7 @@ from .LogoutView import LogoutView
 from .RegisterView import RegisterView
 from .AddListingView import AddListingView
 from .ListListingsView import ListListingsView
+from .DetailListingView import DetailListingView
 from .ListMyListingsView import ListMyListingsView
+from .DeleteListingView import DeleteListingView
+from .AddFavoriteListingView import AddFavoriteListingView
