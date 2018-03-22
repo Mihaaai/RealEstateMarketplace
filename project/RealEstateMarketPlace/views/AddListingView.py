@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ..forms import AddListingForm
 from ..models import Listing
 
-
 class AddListingView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     success_url = '/'
