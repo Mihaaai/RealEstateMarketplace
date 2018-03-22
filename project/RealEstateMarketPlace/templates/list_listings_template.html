@@ -10,7 +10,8 @@
 
 <div class='container'>
 	{% for listing in listings %}
-	<a class='apartment' href='#' style="background-image:url('{{ listing.estate_id.image.url }}');">
+	<a class='apartment' href="{% url 'details_listing' listing.id %}" 
+     style="background-image:url('{{ listing.estate_id.image.url }}');">
     	<div class='details-container'>
       		<div class='price-container-wrapper'>
         		<div class='city'>{{ listing.estate_id.city }}</div>
