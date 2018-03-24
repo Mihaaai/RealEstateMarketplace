@@ -12,4 +12,4 @@ class RegisterView(CreateView):
 
     def get_success_url(self):
 
-        return reverse('default')
+        return reverse('homepage')

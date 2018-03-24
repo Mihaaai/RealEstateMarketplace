@@ -44,9 +44,6 @@ class Estate(models.Model):
     distance_to_centre = models.FloatField(null=True)
     image = models.ImageField(upload_to='images', null=True, max_length=None)
 
-    def __str__(self):
-        return self.address
-
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
@@ -56,9 +53,6 @@ class Listing(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_closed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.title
 
 
 class FavoriteListing(models.Model):
