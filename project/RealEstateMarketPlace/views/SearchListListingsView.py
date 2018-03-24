@@ -3,9 +3,10 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ..models import Listing
+from . import ListListingsView
 
 
-class SearchListListingsView(ListView):
+class SearchListListingsView(ListListingsView):
     template_name = 'list_listings_template.html'
     model = Listing
     context_object_name = 'listings'
