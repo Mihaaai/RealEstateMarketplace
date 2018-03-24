@@ -1,23 +1,13 @@
 from django import forms
 from django.db import transaction
 
-from ..models import Estate, Listing, User
-
-CITY_CHOISES = (
-    ('Bucuresti', 'Bucuresti'),
-    ('Timisoara', 'Timisoara'),
-    ('Iasi', 'Iasi'),
-    ('Ploiesti', 'Ploiesti'),
-    ('Pitesti', 'Pitesti'),
-    ('Cluj', 'Cluj'),
-)
-
+from ..models import Estate, Listing, User, CITY_CHOISES
 
 class AddListingForm(forms.ModelForm):
 
     class Meta:
         model = Listing
-        fields = ['title', 'description', 'phone_number', 'user_id', ]
+        fields = ['title', 'description', 'user_id', ]
 
     user_id = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)
 
