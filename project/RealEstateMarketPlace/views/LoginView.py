@@ -26,7 +26,9 @@ def LoginView(request):
                 if next_url:
                     return HttpResponseRedirect(next_url)
                 else:
-                    return redirect('default')
+                    return redirect('list_listings')
+            else:
+                context['error'] = "The email or password are not correct. Please try again"
 
     context['form'] = form
 

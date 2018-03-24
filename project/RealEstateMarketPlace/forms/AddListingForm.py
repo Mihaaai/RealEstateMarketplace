@@ -19,6 +19,7 @@ class AddListingForm(forms.ModelForm):
     year = forms.IntegerField(required=True, min_value=1900, max_value=2018)
     price = forms.FloatField(required=True, min_value=0)
 
+
     @transaction.atomic
     def save(self):
         estate = Estate(city=self.cleaned_data['city'],
