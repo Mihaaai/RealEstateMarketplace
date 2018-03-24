@@ -9,4 +9,4 @@ from .ListMyListingsView import ListMyListingsView
 from .DeleteListingView import DeleteListingView
 from .ListMyFavoriteListingsView import ListMyFavoriteListingsView
 from .SearchListListingsView import SearchListListingsView
-from . import AddFavoriteListing
+from .AddFavoriteListing import add_favorite_listing
