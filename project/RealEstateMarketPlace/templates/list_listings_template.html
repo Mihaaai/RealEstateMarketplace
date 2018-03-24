@@ -3,14 +3,17 @@
 
 {% block title %}Listings{% endblock %}
 
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/list-listings.css' %}" />
+{% endblock %}
+
 {% block content %}
-<h2>All listings</h2>
 
 {% if listings|length %}
 
 <div class='container'>
 	{% for listing in listings %}
-	<a class='apartment' href="{% url 'details_listing' listing.id %}" 
+	<a class='apartment' href="{% url 'details_listing' listing.id %}"
      style="background-image:url('{{ listing.estate_id.image.url }}');">
     	<div class='details-container'>
       		<div class='price-container-wrapper'>
