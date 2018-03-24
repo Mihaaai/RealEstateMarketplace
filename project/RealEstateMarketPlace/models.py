@@ -3,6 +3,14 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .user_manager import UserManager
 # from django.contrib.auth.models import User
 
+CITY_CHOISES = (
+        ('Bucuresti', 'Bucuresti'),
+        ('Timisoara', 'Timisoara'),
+        ('Iasi', 'Iasi'),
+        ('Ploiesti', 'Ploiesti'),
+        ('Pitesti', 'Pitesti'),
+        ('Cluj', 'Cluj'),
+    )
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
@@ -24,15 +32,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Estate(models.Model):
-    CITY_CHOISES = (
-        ('Bucuresti', 'Bucuresti'),
-        ('Timisoara', 'Timisoara'),
-        ('Iasi', 'Iasi'),
-        ('Ploiesti', 'Ploiesti'),
-        ('Pitesti', 'Pitesti'),
-        ('Cluj', 'Cluj'),
-    )
-
     city = models.CharField(max_length=20, choices=CITY_CHOISES)
     address = models.CharField(max_length=50, null=True)
     price = models.FloatField(default=0)
@@ -43,6 +42,9 @@ class Estate(models.Model):
     year = models.PositiveIntegerField(default=1900)
     distance_to_centre = models.FloatField(null=True)
     image = models.ImageField(upload_to='images', null=True, max_length=None)
+
+    def __str__(self):
+        return self.address
 
 
 class Listing(models.Model):
@@ -62,6 +64,12 @@ class Listing(models.Model):
 class FavoriteListing(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user_id', 'listing_id')
+
+    def __str__(self):
+        return self.user_id.email + ' ' + self.listing_id.title
 
 
 class Message(models.Model):
