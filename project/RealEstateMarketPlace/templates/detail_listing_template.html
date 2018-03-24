@@ -6,8 +6,16 @@
 
 {% if listing %}
 <div>
-	<a href="{% url 'delete_listing' listing.id %}">Delete</a>
-	<a href="{% url 'add_favorite_listing' %}"> Add to favorites</a>
+	<a type="button" class="btn btn-danger" href="{% url 'delete_listing' listing.id %}">Delete</a>
+	<a id="favButton" type="button" class="btn btn-success" href="{% url 'favorite' listing.id %}">
+	{% if is_fav == 0 %}
+		Add to favorites
+	{% else %}
+		Remove from favorites
+	{% endif %}
+	</a>
+	
+
 	<div class="my_details">
 		<div>
 			<p>Title: </p>

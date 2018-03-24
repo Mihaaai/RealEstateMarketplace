@@ -7,4 +7,6 @@ from .ListListingsView import ListListingsView
 from .DetailListingView import DetailListingView
 from .ListMyListingsView import ListMyListingsView
 from .DeleteListingView import DeleteListingView
-from .AddFavoriteListingView import AddFavoriteListingView
+from .ListMyFavoriteListingsView import ListMyFavoriteListingsView
+from .SearchListListingsView import SearchListListingsView
+from . import AddFavoriteListing
