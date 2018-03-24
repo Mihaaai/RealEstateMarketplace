@@ -1,4 +1,4 @@
-.apartment{
+.listing{
   height:200px;
   width:300px;
   background-color:white;
@@ -33,7 +33,7 @@
   border-radius:10px;
 }
 
-.price-container-wrapper{
+.price-container{
   position: absolute;
   font-size:16px;
   color: white;
@@ -43,16 +43,40 @@
   text-align:center;
 }
 
-.apartment:hover >.details-container{
+.listing:hover >.details-container{
     height: 40%;
   }
 
-.apartment:hover .city{
+.listing:hover .city{
   display: block;
 }
 
+.listing.True > .details-container{
+  height: 100%;
+  position: relative;
+}
+
+.listing.True .price-container{
+  display:none;
+}
+
+.listing.True:hover > .details-container{
+  height: 100%;
+}
+
+.listing.True > .details-container::after{
+  content:'CLOSED';
+  font-size: 2rem;
+  font-family: serif;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  color: white;
+
+}
+
 .city{
-  margin-bottom:10px;
   display:none;
   font-size:18px;
 }
