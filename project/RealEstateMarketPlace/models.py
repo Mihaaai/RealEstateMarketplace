@@ -4,13 +4,14 @@ from .user_manager import UserManager
 # from django.contrib.auth.models import User
 
 CITY_CHOISES = (
-        ('Bucuresti', 'Bucuresti'),
-        ('Timisoara', 'Timisoara'),
-        ('Iasi', 'Iasi'),
-        ('Ploiesti', 'Ploiesti'),
-        ('Pitesti', 'Pitesti'),
-        ('Cluj', 'Cluj'),
-    )
+    ('Bucuresti', 'Bucuresti'),
+    ('Timisoara', 'Timisoara'),
+    ('Iasi', 'Iasi'),
+    ('Ploiesti', 'Ploiesti'),
+    ('Pitesti', 'Pitesti'),
+    ('Cluj', 'Cluj'),
+)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)

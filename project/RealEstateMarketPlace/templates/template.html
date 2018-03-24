@@ -5,12 +5,13 @@
     <head>
         <title>{% block title %}Real Market Estate{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
 
         {% block styles %}
         {%endblock%}
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
 
     </head>
@@ -38,8 +39,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'register' %}">Register</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add' %}">Add Listing</a>
+                        </li>
                         {% endif %}
                     </ul>
+                    {% if user.is_authenticated %}
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'fav_listings' %}">Favorites</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'add' %}">Add Listing</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    <form action="{% url 'search_listings' %}" class="form-inline my-2 my-lg-0" method='GET'>
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
             </nav>
         {% endblock %}

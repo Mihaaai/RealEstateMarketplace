@@ -3,6 +3,7 @@ from django.db import transaction
 
 from ..models import Estate, Listing, User, CITY_CHOISES
 
+
 class AddListingForm(forms.ModelForm):
 
     class Meta:
@@ -18,7 +19,6 @@ class AddListingForm(forms.ModelForm):
     size = forms.FloatField(required=True, min_value=10, max_value=200)
     year = forms.IntegerField(required=True, min_value=1900, max_value=2018)
     price = forms.FloatField(required=True, min_value=0)
-
 
     @transaction.atomic
     def save(self):
