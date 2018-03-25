@@ -14,4 +14,3 @@ class ListMyFavoriteListingsView(LoginRequiredMixin, ListListingsView):
     def get_queryset(self):
         ids = FavoriteListing.objects.values_list('listing_id', flat=True).filter(user_id=self.request.user.id)
         return Listing.objects.filter(id__in=set(ids)).order_by('-created')
-

@@ -2,12 +2,40 @@
 
 {% block title %}Listing Details{% endblock %}
 
+{% block styles %}
+
+<script type="text/javascript">
+	window.onload = function() {
+		$("#favButton").click(function(ev) {
+			ev.preventDefault();
+
+			listing_id = $(this).attr("data-list");
+
+			$.get("/list/" + listing_id + "/favorite", function(data) {
+				if(data["status"] == "ok") {
+					if(data["message"].indexOf("added") != -1)
+						$("#favButton").text("Remove from favorites");
+					else
+						$("#favButton").text("Add to favorites");
+
+					$("#alertMessage").text(data["message"]);
+					$("#alertMessage").css("display", "block");
+					$("#alertMessage").delay(1000).fadeOut(400);
+				} else
+					alert("Error");
+			});
+		});
+	}
+</script>
+
+{% endblock %}
+
 {% block content %}
 
 {% if listing %}
 <div>
 	<a type="button" class="btn btn-danger" href="{% url 'delete_listing' listing.id %}">Delete</a>
-	<a id="favButton" type="button" class="btn btn-success" href="{% url 'favorite' listing.id %}">
+	<a id="favButton" type="button" class="btn btn-success" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
 	{% if is_fav == 0 %}
 		Add to favorites
 	{% else %}
@@ -80,6 +108,8 @@
 		</div>
 	</div>
 </div>
+
+<div id="alertMessage" class="alert alert-success" role="alert" style="position: fixed; width: 23%; bottom: 100px; left: 50%; transform: translateX(-50%); display: none;"></div>
 
 {% else %}
 

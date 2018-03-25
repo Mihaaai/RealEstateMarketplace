@@ -14,11 +14,24 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
 
+        <script type="text/javascript">
+            function openNav() {
+                $("#mySidenav").css("width", "250px");
+                $(".main-container").css("marginLeft", "250px");
+            }
+
+            function closeNav() {
+                $("#mySidenav").css("width", "0");
+                $(".main-container").css("marginLeft", "0px");
+            }
+        </script>
+
     </head>
     <body>
         <div class="main-container">
         {% block navbar %}
             <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -57,12 +70,53 @@
                             </li>
                         </ul>
                     {% endif %}
-                    <form action="{% url 'search_listings' %}" class="form-inline my-2 my-lg-0" method='GET'>
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    
                 </div>
             </nav>
+            <!-- Side navigation -->
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <form action="{% url 'search_listings' %}" method='GET'>
+                    <div class="form-group col-sm-12">
+                        <label for="roomsNumber">Rooms</label>
+                        <input type="number" class="form-control" id="roomsNumber" name="rooms">
+                    </div>
+                    <div class="form-group">
+                        <label for="minMaxPrice" style="padding-left: 15px;">Price</label>
+                        <div id="minMaxPrice" class="form-row col-sm-12">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Min" name="minPrice">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Max" name="maxPrice">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="minMaxYear" style="padding-left: 15px;">Year</label>
+                        <div id="minMaxYear" class="form-row col-sm-12">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Min" name="minYear">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Max" name="maxYear">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label for="cityName">City</label>
+                            <select class="form-control" id="cityName" name="city">
+                                <option>Bucuresti</option>
+                                <option>Timisoara</option>
+                                <option>Iasi</option>
+                                <option>Ploiesti</option>
+                                <option>Pitesti</option>
+                                <option>Cluj</option>
+                            </select>
+                        </div>
+                    <button class="btn btn-success" type="submit" style="display: block; margin: 0 auto;">Search</button>
+                </form>
+            </div>
         {% endblock %}
         {% block content %}
         {% endblock %}
