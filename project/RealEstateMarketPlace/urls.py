@@ -13,7 +13,7 @@ urlpatterns = [
     path('list/my-listings/', views.ListMyListingsView.as_view(), name='list_my_listings'),
     path('list/<int:pk>', views.DetailListingView.as_view(), name='details_listing'),
     path('list/<int:pk>/delete', views.DeleteListingView.as_view(), name='delete_listing'),
-    path('list/<listing_id>/favorite', views.add_favorite_listing, name='favorite'),
+    path('list/<listing_id>/favorite', views.AddFavoriteListingAPI.as_view(), name='favorite'),
     path('list/favorites', views.ListMyFavoriteListingsView.as_view(), name='fav_listings'),
     path('list/search/', views.SearchListListingsView.as_view(), name='search_listings'),
 
