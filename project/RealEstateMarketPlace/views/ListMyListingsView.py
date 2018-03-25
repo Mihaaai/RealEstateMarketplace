@@ -11,6 +11,7 @@ class ListMyListingsView(LoginRequiredMixin, ListListingsView):
         super(ListMyListingsView, self).__init__()
 
     login_url = reverse_lazy('login')
+    template_name = "list_my_listings_template.html"
 
     def get_queryset(self):
-        return Listing.objects.filter(user_id=self.request.user).order_by('-created').order_by('-is_closed')
+        return Listing.objects.filter(user_id=self.request.user).filter(is_closed=False).order_by('-created')

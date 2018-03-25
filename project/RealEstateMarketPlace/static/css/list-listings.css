@@ -30,7 +30,8 @@
   height:20%;
   position:absolute;
   transition: height 0.5s;
-  border-radius:10px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 .price-container{
@@ -54,6 +55,7 @@
 .listing.True > .details-container{
   height: 100%;
   position: relative;
+  border-radius:8px;
 }
 
 .listing.True .price-container{
@@ -62,6 +64,7 @@
 
 .listing.True:hover > .details-container{
   height: 100%;
+
 }
 
 .listing.True > .details-container::after{
