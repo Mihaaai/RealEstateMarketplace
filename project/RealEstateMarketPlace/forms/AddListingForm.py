@@ -15,6 +15,7 @@ class AddListingForm(forms.ModelForm):
     city = forms.ChoiceField(choices=CITY_CHOISES, required=True)
     image = forms.ImageField(required=False)
     rooms = forms.IntegerField(required=True, min_value=0, max_value=10)
+    bathrooms = forms.IntegerField(required=True, min_value=0, max_value=5)
     floor = forms.IntegerField(required=True, min_value=0, max_value=20)
     size = forms.FloatField(required=True, min_value=10, max_value=200)
     year = forms.IntegerField(required=True, min_value=1900, max_value=2018)
@@ -29,6 +30,7 @@ class AddListingForm(forms.ModelForm):
                         year=self.cleaned_data['year'],
                         price=self.cleaned_data['price'],
                         image=self.cleaned_data['image'],
+                        bathrooms=self.cleaned_data['bathrooms'],
                         )
         estate.save()
 
