@@ -1,21 +1,17 @@
 {% extends 'template.html' %}
+{% load static %}
 
 {% block title %}Register{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms.css' %}" />
+{% endblock %}
+
 {% block content %}
-<h1>Register</h1>
+<div class="container form-container">
+<h2>Register</h2>
 
-{% if form.errors %}
-<div>
-    {{ error }}
+{% include "form_template.html" %}
+
 </div>
-{% endif %}
-
-<form method="POST" enctype="multipart/form-data" class="form">
-    {% csrf_token %} {{ form.as_p }}
-
-    <button type="submit">Register</button>
-
-</form>
-
 {% endblock %}
