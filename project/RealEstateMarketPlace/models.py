@@ -42,7 +42,7 @@ class Estate(models.Model):
     estimated_price = models.FloatField(null=True)
     year = models.PositiveIntegerField(default=1900)
     distance_to_centre = models.FloatField(null=True)
-    image = models.ImageField(upload_to='images', null=True, max_length=None),
+    image = models.ImageField(upload_to='images', null=True, max_length=None)
     bathrooms = models.PositiveSmallIntegerField(default=0)
 
 
