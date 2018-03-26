@@ -1,0 +1,28 @@
+.form-container{
+    padding:20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid lightgrey;
+    border-radius:20px;
+    box-shadow: 5px 5px 5px grey;
+}
+
+h2{
+    text-align: center;
+}
+
+label{
+    font-weight: 600;
+}
+
+@media (min-width: 1200px){
+    .form-container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px){
+    .form-container {
+        max-width: 720px;
+    }
+}
