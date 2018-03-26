@@ -4,9 +4,9 @@ body, html{
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 .main-container{
-    min-height: calc(100%);
+    min-height: 100%
     transition: margin-left .5s;
-    background-color: lightgrey;
+    position: relative;
 }
 
 
@@ -57,4 +57,8 @@ body, html{
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-} 
+}
+
+.navbar{
+    border-bottom: 1px solid lightgrey;
+}
