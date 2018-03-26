@@ -87,3 +87,17 @@
 .price::after{
   content: ' RON';
 }
+
+.listing-filter{
+  width:100%;
+  justify-content:center;
+  border-bottom:1px solid lightgrey;
+}
+
+.listings-empty-content{
+  margin:auto;
+}
+
+.container{
+  height: calc(100% - 100px);
+}

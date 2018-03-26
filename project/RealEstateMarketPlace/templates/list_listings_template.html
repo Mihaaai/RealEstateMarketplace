@@ -8,13 +8,13 @@
 {% endblock %}
 
 {% block content %}
+<div class='container'>
 
 {% if listings|length %}
 
-<div class='container'>
 	{% for listing in listings %}
 	<a class="listing  {{ listing.is_closed }}" href="{% url 'details_listing' listing.id %}"
-     style="background-image:url('{{ listing.estate_id.image.url }}');">
+     style="background-image:url('{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}{% endif %}');">
     	<div class='details-container'>
       		<div class='price-container'>
         		<div class='city'>{{ listing.estate_id.city }}</div>
@@ -24,12 +24,11 @@
   	</a>
 	{% endfor %}
 
-</div>
 
 {% else %}
 
-<h5> No listings available.</h5>
+<h5 class="listings-empty-content">No listings available.</h5>
 
 {% endif %}
-
+</div>
 {% endblock %}
