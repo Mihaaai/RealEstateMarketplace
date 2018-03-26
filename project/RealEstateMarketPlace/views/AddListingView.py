@@ -8,7 +8,7 @@ from ..models import Listing
 
 class AddListingView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
-    success_url = reverse_lazy('list')
+    success_url = reverse_lazy('list_listings')
     form_class = AddListingForm
     template_name = 'add_listing_template.html'
     model = Listing
