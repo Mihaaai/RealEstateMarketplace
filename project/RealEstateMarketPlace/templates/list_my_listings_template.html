@@ -1,8 +1,8 @@
 {% extends "list_listings_template.html" %}
 
 {% block filter %}
-<div class="listing-filter">
-<a href="{% url 'list_my_listings' %}">Open</a>
-<a href="{% url 'list_my_closed_listings' %}">Closed</a>
+<div class="listing-filter btn-group btn-group-sm" role="group">
+<a class="btn btn-outline-secondary" href="{% url 'list_my_listings' %}">Open</a>
+<a class="btn btn-outline-secondary" href="{% url 'list_my_closed_listings' %}">Closed</a>
 </div>
 {% endblock %}
