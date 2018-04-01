@@ -64,3 +64,21 @@ body, html{
     border-bottom: 1px solid lightgrey;
 }
 
+
+.table>tbody>tr>td.td-white-right-borders {
+	border-right: 1px solid white;
+}
+
+.cl-grey {
+	color: grey;
+}
+
+.seller_information {
+	width: 20%;
+	float: right;
+	margin-top: 7%;
+	background-color: #f2f2f2;
+	text-align: center;
+	padding: 15px;
+	border-radius: 15px;
+}
