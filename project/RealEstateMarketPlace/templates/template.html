@@ -32,10 +32,8 @@
         <div class="main-container">
         {% block navbar %}
             <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                {% block sidebar %}
+                {% endblock %}
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
@@ -74,50 +72,6 @@
 
                 </div>
             </nav>
-            <!-- Side navigation -->
-            <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <form action="{% url 'search_listings' %}" method='GET'>
-                    <div class="form-group col-sm-12">
-                        <label for="roomsNumber">Rooms</label>
-                        <input type="number" class="form-control" id="roomsNumber" name="rooms">
-                    </div>
-                    <div class="form-group">
-                        <label for="minMaxPrice" style="padding-left: 15px;">Price</label>
-                        <div id="minMaxPrice" class="form-row col-sm-12">
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Min" name="minPrice">
-                            </div>
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Max" name="maxPrice">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="minMaxYear" style="padding-left: 15px;">Year</label>
-                        <div id="minMaxYear" class="form-row col-sm-12">
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Min" name="minYear">
-                            </div>
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Max" name="maxYear">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12">
-                        <label for="cityName">City</label>
-                            <select class="form-control" id="cityName" name="city">
-                                <option>Bucuresti</option>
-                                <option>Timisoara</option>
-                                <option>Iasi</option>
-                                <option>Ploiesti</option>
-                                <option>Pitesti</option>
-                                <option>Cluj</option>
-                            </select>
-                        </div>
-                    <button class="btn btn-success" type="submit" style="display: block; margin: 0 auto;">Search</button>
-                </form>
-            </div>
         {% endblock %}
 
         {% block filter %}

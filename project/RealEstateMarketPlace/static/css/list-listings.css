@@ -85,7 +85,7 @@
 }
 
 .price::after{
-  content: ' RON';
+  content: ' EURO';
 }
 
 .listing-filter{
