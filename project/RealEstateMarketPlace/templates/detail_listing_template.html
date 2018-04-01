@@ -14,9 +14,9 @@
 			$.get("/list/" + listing_id + "/favorite", function(data) {
 				if(data["status"] == "ok") {
 					if(data["message"].indexOf("added") != -1)
-						$("#favButton").text("Remove from favorites");
+						$("#favButton").html('<i class="fas fa-star"></i> Remove from favorites');
 					else
-						$("#favButton").text("Add to favorites");
+						$("#favButton").html('<i class="far fa-star"></i> Add to favorites');
 
 					$("#alertMessage").text(data["message"]);
 					$("#alertMessage").css("display", "block");
@@ -33,80 +33,85 @@
 {% block content %}
 
 {% if listing %}
-<div>
-	<a type="button" class="btn btn-danger" href="{% url 'delete_listing' listing.id %}">Delete</a>
-	<a id="favButton" type="button" class="btn btn-success" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
+<div style="padding-left: 30px; padding-right: 30px; padding-top: 20px;">
+	<a type="button" class="btn btn-danger float-right" href="{% url 'delete_listing' listing.id %}">Delete</a>
+	<a id="favButton" type="button" class="btn btn-success float-right" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}" style="margin-right: 10px;">
 	{% if is_fav == 0 %}
-		Add to favorites
+		<i class="far fa-star"></i> Add to favorites
 	{% else %}
-		Remove from favorites
+		<i class="fas fa-star"></i> Remove from favorites
 	{% endif %}
 	</a>
 
 
-	<div class="my_details">
+	<div class="my_details" style="width: 80%; float: left;">
 		<div>
-			<p>Title: </p>
-			<p>{{listing.title}}</p>
+			<h2>{{listing.title}}</h2>
 		</div>
-		<div>
-			<p>Description: </p>
-			<p>{{listing.description}}</p>
+
+		<div style="width: 600px; margin-top: 20px;">
+			<img src="{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}{% endif %}" style="display: block; width: 100%; height: auto;">
 		</div>
-		<div>
-			<p>Last updated at: </p>
-			<p> {{listing.updated.year}}.{{listing.updated.month}}.{{listing.updated.day}}</p>
-		</div>
-		<div>
-			<p>City: </p>
-			<p>{{listing.estate_id.city}}</p>
-		</div>
-		<div>
-			<p>Adress: </p>
-			<p>{{listing.estate_id.address}}</p>
-		</div>
-		<div>
-			<p>Price: </p>
-			<p>{{listing.estate_id.price}}</p>
-		</div>
-		<div>
-			<p>Rooms: </p>
-			<p>{{listing.estate_id.rooms}}</p>
-		</div>
-		<div>
-			<p>Bathrooms: </p>
-			<p>{{listing.estate_id.bathrooms}}</p>
-		</div>
-		<div>
-			<p>Size: </p>
-			<p>{{listing.estate_id.size}}</p>
-		</div>
-		<div>
-			<p>Price: </p>
-			<p>{{listing.estate_id.estimated_price}}</p>
-		</div>
-		<div>
-			<p>Built year: </p>
-			<p>{{listing.estate_id.year}}</p>
-		</div>
-		<div>
-			<p>Distance to centre: </p>
-			<p>{{listing.estate_id.distance_to_centre}}</p>
-		</div>
-		<div>
-			<p>Email: </p>
-			<p>{{listing.user_id.email}}</p>
-		</div>
-		<div>
-			<p>Phone: </p>
-			<p>{{listing.user_id.phone_number}}</p>
-		</div>
-		<div>
-			<p>User: </p>
-			<p>{{listing.user_id.first_name}}</p>
-			<p>{{listing.user_id.last_name}}</p>
-		</div>
+		
+		<p style="margin-top: 30px;">{{ listing.description }}</p>
+
+		<table class="table table-bordered" style="width: 80%;">
+			<tbody>
+				<tr scope="row">
+					<td class="td-white-right-borders cl-grey">Oras: </td>
+					<td>{{ listing.estate_id.city }}</td>
+					<td class="td-white-right-borders cl-grey">Adresa: </td>
+					<td>{{ listing.estate_id.address }}</td>
+					<td class="td-white-right-borders cl-grey">Nr camere: </td>
+					<td>{{ listing.estate_id.rooms }}</td>
+					<td class="td-white-right-borders cl-grey">Nr bai: </td>
+					<td>{{ listing.estate_id.bathrooms }}</td>
+				</tr>
+				<tr scope="row">
+					<td class="td-white-right-borders cl-grey">Suprafata: </td>
+					<td>{{ listing.estate_id.size|floatformat:-2 }} m&sup2;</td>
+					<td class="td-white-right-borders cl-grey">Etaj: </td>
+					<td>{{ listing.estate_id.floor }}</td>
+					<td class="td-white-right-borders cl-grey">An de finalizare: </td>
+					<td>{{ listing.estate_id.year }}</td>
+					<td class="td-white-right-borders cl-grey">Distanta fata de centru: </td>
+					<td>{{ listing.estate_id.distance_to_centre|floatformat:-2 }} km</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br>
+		<span style="font-weight: bold;">Contacteaza vanzatorul: </span>
+
+		<form action="#" method="POST" class="col-sm-7" style="padding-top: 30px; padding-bottom: 40px;">
+			<div class="form-group">
+				<label for="messageTitle">Titlu</label>
+				<input type="text" class="form-control" id="messageTitle" placeholder="Titlu">
+			</div>
+			<div class="form-group">
+				<label for="messageContent">Mesajul tau</label>
+				<textarea class="form-control" id="messageContent" rows="3"></textarea>
+			</div>
+			<button class="btn btn-primary" type="submit"><i class="fas fa-envelope" style="padding-right: 15px;"></i> Trimite</button>
+		</form>
+
 	</div>
+
+	<div class="seller_information">
+		<h3>{{ listing.estate_id.price|floatformat:-2}} &euro;</h3>
+
+		<a href="#" class="btn btn-primary" style="font-size: 20px; font-weight: bold; width: 90%;"><i class="fas fa-phone" style="font-size: 18px; padding-right: 5px;"></i> {{ listing.user_id.phone_number }}</a>
+		<br>
+		<br>
+		<br>
+		<a href="#"><h4>{{listing.user_id.first_name}}</h4></a>
+
+		<small>Utilizator inregistrat in {{ listing.user_id.created|date:"b Y" }}</small>
+		<br>
+
+		<a href="#" class="btn btn-info">Vezi toate anunturile</a>
+	</div>
+
 </div>
 
 <div id="alertMessage" class="alert alert-success" role="alert" style="position: fixed; width: 23%; bottom: 100px; left: 50%; transform: translateX(-50%); display: none;"></div>

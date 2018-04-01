@@ -104,3 +104,6 @@ ENV/
 *.sqlite3
 /project/RealEstateMarketPlace/migrations
 /project/media/
+other_stuff/
+Pipfile
+Pipfile.lock
