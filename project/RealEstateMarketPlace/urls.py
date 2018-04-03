@@ -17,5 +17,5 @@ urlpatterns = [
     path('list/<listing_id>/favorite', views.AddFavoriteListingAPI.as_view(), name='favorite'),
     path('list/favorites', views.ListMyFavoriteListingsView.as_view(), name='fav_listings'),
     path('list/search/', views.SearchListListingsView.as_view(), name='search_listings'),
-
+    path('list/<int:pk>/update', views.UpdateListingView.as_view(), name='update_listing'),
 ]

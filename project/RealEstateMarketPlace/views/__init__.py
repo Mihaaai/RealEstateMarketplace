@@ -12,3 +12,4 @@ from .SearchListListingsView import SearchListListingsView
 # from .AddFavoriteListing import add_favorite_listing
 from .AddFavoriteListing import AddFavoriteListingAPI
 from .ListMyClosedListingsView import ListMyClosedListingsView
+from .UpdateListingView import UpdateListingView

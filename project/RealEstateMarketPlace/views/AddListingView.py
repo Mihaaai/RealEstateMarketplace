@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ..forms import AddListingForm
 from ..models import Listing
 
-
 class AddListingView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('list_listings')
