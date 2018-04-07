@@ -19,7 +19,8 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 
 		return {
 			'user_id': self.request.user.id,
-			'city': estate.city,
+			'neighborhood': estate.neighborhood,
+			'partitioning': estate.partitioning,
 			'image': estate.image,
 			'rooms': estate.rooms,
 			'bathrooms': estate.rooms,

@@ -3,14 +3,30 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .user_manager import UserManager
 # from django.contrib.auth.models import User
 
-CITY_CHOISES = (
-    ('Bucuresti', 'Bucuresti'),
-    ('Timisoara', 'Timisoara'),
-    ('Iasi', 'Iasi'),
-    ('Ploiesti', 'Ploiesti'),
-    ('Pitesti', 'Pitesti'),
-    ('Cluj', 'Cluj'),
+NEIGHBORHOOD_CHOICES = (
+    ('Aviatiei', 'Aviatiei'),
+    ('Berceni', 'Berceni'),
+    ('Centru', 'Centru'),
+    ('Colentina', 'Colentina'),
+    ('Drumul Taberei', 'Drumul Taberei'),
+    ('Ferentari', 'Ferentari'),
+    ('Giulesti', 'Giulesti'),
+    ('Grivita', 'Grivita'),
+    ('Magurele', 'Magurele'),
+    ('Militari', 'Militari'),
+    ('Pantelimon', 'Pantelimon'),
+    ('Rahova', 'Rahova'),
+    ('Tei', 'Tei'),
+    ('Titan', 'Titan'),
+    ('Vitan', 'Vitan'),
 )
+
+PARTITIONING_CHOICES = {
+    ('Decomandat', 'Decomandat'),
+    ('Semidecomandat', 'Semidecomandat'),
+    ('Nedecomandat', 'Nedecomandat'),
+    ('Circular', 'Circular'),
+}
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -33,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Estate(models.Model):
-    city = models.CharField(max_length=20, choices=CITY_CHOISES)
+    neighborhood = models.CharField(max_length=20, choices=NEIGHBORHOOD_CHOICES)
     address = models.CharField(max_length=50, null=True)
     price = models.FloatField(default=0)
     rooms = models.PositiveSmallIntegerField(default=0)
@@ -41,9 +57,9 @@ class Estate(models.Model):
     size = models.FloatField(default=0)
     estimated_price = models.FloatField(null=True)
     year = models.PositiveIntegerField(default=1900)
-    distance_to_centre = models.FloatField(null=True)
     image = models.ImageField(upload_to='images', null=True, max_length=None)
     bathrooms = models.PositiveSmallIntegerField(default=0)
+    partitioning = models.CharField(max_length=20, choices=PARTITIONING_CHOICES)
 
 
 class Listing(models.Model):

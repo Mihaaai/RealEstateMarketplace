@@ -1,7 +1,7 @@
 from django import forms
 from django.db import transaction
 
-from ..models import Estate, Listing, User, CITY_CHOISES
+from ..models import (Estate, Listing, User, NEIGHBORHOOD_CHOICES, PARTITIONING_CHOICES)
 
 class AddListingForm(forms.ModelForm):
 
@@ -11,8 +11,9 @@ class AddListingForm(forms.ModelForm):
 
 	user_id = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)
 
-	city = forms.ChoiceField(choices=CITY_CHOISES, required=True)
 	image = forms.ImageField(required=False)
+	neighborhood = forms.ChoiceField(choices=NEIGHBORHOOD_CHOICES, required=True)
+	partitioning = forms.ChoiceField(choices=PARTITIONING_CHOICES, required=True)
 	rooms = forms.IntegerField(required=True, min_value=1, max_value=10)
 	bathrooms = forms.IntegerField(required=True, min_value=0, max_value=5)
 	floor = forms.IntegerField(required=True, min_value=0, max_value=20)
@@ -22,7 +23,8 @@ class AddListingForm(forms.ModelForm):
 
 	@transaction.atomic
 	def save(self):
-		estate = Estate(city=self.cleaned_data['city'],
+		estate = Estate(neighborhood=self.cleaned_data['neighborhood'],
+		                partitioning=self.cleaned_data['partitioning'],
 						rooms=self.cleaned_data['rooms'],
 						floor=self.cleaned_data['floor'],
 						size=self.cleaned_data['size'],

@@ -21,10 +21,10 @@
 
 	{% for listing in listings %}
 	<a class="listing  {{ listing.is_closed }}" href="{% url 'details_listing' listing.id %}"
-     style="background-image:url('{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}{% endif %}');">
+     style="{% if listing.estate_id.image %}background-image:url('{{ listing.estate_id.image.url }}{% endif %}');">
     	<div class='details-container'>
       		<div class='price-container'>
-        		<div class='city'>{{ listing.estate_id.city }}</div>
+        		<div class='city'>{{ listing.estate_id.neighborhood }}</div>
         		<div class='price'>{{ listing.estate_id.price|floatformat:-2 }}</div>
       		</div>
     	</div>

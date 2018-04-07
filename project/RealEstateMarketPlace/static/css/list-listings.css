@@ -11,6 +11,7 @@
   box-shadow: 5px 5px 5px grey;
   border: 1px solid grey;
   border-radius: 10px;
+  background-image: url('http://www.albasateen-village.com/ui/cash/C500500no_image.jpg');
 }
 
 .container{
@@ -48,7 +49,7 @@
     height: 40%;
   }
 
-.listing:hover .city{
+.listing:hover .neighborhood{
   display: block;
 }
 
@@ -79,7 +80,7 @@
 
 }
 
-.city{
+.neighborhood{
   display:none;
   font-size:18px;
 }
