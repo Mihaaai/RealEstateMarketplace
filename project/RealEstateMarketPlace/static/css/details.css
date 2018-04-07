@@ -1,0 +1,22 @@
+.details-container{
+    margin-top: 20px;
+    width: 100%;
+}
+
+.details-button-set{
+    width: 100%;
+}
+
+.details-listing-details-container{
+    clear: both;
+}
+
+.details-seller-info {
+
+	margin-top: 7%;
+	background-color: #f2f2f2;
+	text-align: center;
+	padding: 15px;
+	border-radius: 15px;
+	box-sizing: border-box;
+}
