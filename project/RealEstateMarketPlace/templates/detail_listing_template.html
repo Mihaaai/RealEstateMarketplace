@@ -1,5 +1,5 @@
 {% extends "template.html" %}
-
+{% load static %}
 {% block title %}Listing Details{% endblock %}
 
 {% block styles %}
@@ -28,34 +28,53 @@
 	}
 </script>
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}" />
+
 {% endblock %}
 
 {% block content %}
 
 {% if listing %}
-<div style="padding-left: 30px; padding-right: 30px; padding-top: 20px;">
-	<a type="button" class="btn btn-danger float-right" href="{% url 'delete_listing' listing.id %}">Delete</a>
-	<a id="favButton" type="button" class="btn btn-success float-right" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}" style="margin-right: 10px;">
-	{% if is_fav == 0 %}
-		<i class="far fa-star"></i> Add to favorites
-	{% else %}
-		<i class="fas fa-star"></i> Remove from favorites
-	{% endif %}
-	</a>
-	<a type="button" class="btn btn-warning float-right" href="{% url 'update_listing' listing.id%}" style="margin-right: 10px">Update</a>
+<div class="details-page-container">
+	<div class="buttons-container">
+		<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
+		<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
+			{% if is_fav == 0 %}
+				<i class="far fa-star"></i> Add to favorites
+			{% else %}
+				<i class="fas fa-star"></i> Remove from favorites
+			{% endif %}
+		</a>
+		<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
+	</div>
 
-	<div class="my_details" style="width: 80%; float: left;">
+	<div class="my_details">
 		<div>
-			<h2>{{listing.title}}</h2>
+			<h2 class="listing-title">{{listing.title}}</h2>
 		</div>
 
-		<div style="width: 600px; margin-top: 20px;">
-			<img src="{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}{% endif %}" style="display: block; width: 100%; height: auto;">
+		<div class="seller-information">
+			<h3>{{ listing.estate_id.price|floatformat:-2}} &euro;</h3>
+
+			<a href="#" class="btn btn-primary call-button"><i class="fas fa-phone call-icon"></i> {{ listing.user_id.phone_number }}</a>
+			<br>
+			<br>
+			<br>
+			<a href="#"><h4>{{listing.user_id.first_name}}</h4></a>
+
+			<small>Utilizator inregistrat in {{ listing.user_id.created|date:"b Y" }}</small>
+			<br>
+
+			<a href="#" class="btn btn-info">Vezi toate anunturile</a>
+		</div>
+
+		<div class="image-container">
+			<img src="{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}{% endif %}" class="listing-image">
 		</div>
 		
-		<p style="margin-top: 30px;">{{ listing.description }}</p>
+		<p class="listing-description">{{ listing.description }}</p>
 
-		<table class="table table-bordered" style="width: 80%;">
+		<table class="table table-bordered table-responsive listing-features">
 			<tbody>
 				<tr scope="row">
 					<td class="td-white-right-borders cl-grey">Oras: </td>
@@ -81,9 +100,9 @@
 		</table>
 
 		<br>
-		<span style="font-weight: bold;">Contacteaza vanzatorul: </span>
+		<span class="contact-seller">Contacteaza vanzatorul: </span>
 
-		<form action="#" method="POST" class="col-sm-7" style="padding-top: 30px; padding-bottom: 40px;">
+		<form action="#" method="POST" class="col-sm-7 send-message-form">
 			<div class="form-group">
 				<label for="messageTitle">Titlu</label>
 				<input type="text" class="form-control" id="messageTitle" placeholder="Titlu">
@@ -92,29 +111,14 @@
 				<label for="messageContent">Mesajul tau</label>
 				<textarea class="form-control" id="messageContent" rows="3"></textarea>
 			</div>
-			<button class="btn btn-primary" type="submit"><i class="fas fa-envelope" style="padding-right: 15px;"></i> Trimite</button>
+			<button class="btn btn-primary" type="submit"><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
 		</form>
 
 	</div>
 
-	<div class="seller_information">
-		<h3>{{ listing.estate_id.price|floatformat:-2}} &euro;</h3>
-
-		<a href="#" class="btn btn-primary" style="font-size: 20px; font-weight: bold; width: 90%;"><i class="fas fa-phone" style="font-size: 18px; padding-right: 5px;"></i> {{ listing.user_id.phone_number }}</a>
-		<br>
-		<br>
-		<br>
-		<a href="#"><h4>{{listing.user_id.first_name}}</h4></a>
-
-		<small>Utilizator inregistrat in {{ listing.user_id.created|date:"b Y" }}</small>
-		<br>
-
-		<a href="#" class="btn btn-info">Vezi toate anunturile</a>
-	</div>
-
 </div>
 
-<div id="alertMessage" class="alert alert-success" role="alert" style="position: fixed; width: 23%; bottom: 100px; left: 50%; transform: translateX(-50%); display: none;"></div>
+<div id="alertMessage" class="alert alert-success alert-message" role="alert"></div>
 
 {% else %}
 

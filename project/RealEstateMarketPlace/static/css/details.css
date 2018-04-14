@@ -20,3 +20,118 @@
 	border-radius: 15px;
 	box-sizing: border-box;
 }
+
+/* In detail_listing_template.html I'm using the ones below this line. */
+
+.details-page-container {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 20px;
+}
+
+.fav-button {
+	margin-right: 10px;
+}
+
+.my_details {
+	/*width: 80%;*/
+	/*float: left;*/
+}
+
+.image-container {
+	width: auto;
+	max-width: 600px;
+	margin-top: 20px;
+}
+
+.listing-image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.listing-description {
+	margin-top: 30px;
+}
+
+.listing-features {
+	width: 80%;
+}
+
+.contact-seller {
+	font-weight: bold;
+}
+
+.send-message-form {
+	padding-top: 30px;
+	padding-bottom: 40px;
+}
+
+.send-message-icon {
+	padding-right: 15px;
+}
+
+.btn.call-button, .btn-primary.call-button {
+	font-size: 20px;
+	font-weight: bold;
+	width: 90%;
+}
+
+.call-icon {
+	font-size: 18px;
+	padding-right: 5px;
+}
+
+.alert-message {
+	position: fixed;
+	width: 23%;
+	bottom: 100px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: none;
+}
+
+.table>tbody>tr>td.td-white-right-borders {
+	border-right: 1px solid white;
+}
+
+.cl-grey {
+	color: grey;
+}
+
+.seller-information {
+	width: 250px;
+	float: right;
+	margin-top: 7%;
+	height: auto;
+	background-color: #f2f2f2;
+	text-align: center;
+	padding: 15px;
+	border-radius: 15px;
+}
+
+.buttons-container {
+	float: right;
+}
+
+@media only screen and (max-width: 920px) {
+	.seller-information {
+		width: 100%;
+		float: none;
+		clear: both;
+	}
+
+	.buttons-container {
+		float: none;
+	}
+
+	.listing-title {
+		display: inline-block;
+		margin-top: 20px;
+	}
+
+	.btn.fav-button, .btn-warning.fav-button, .btn-success.fav-button, .btn-danger.fav-button {
+		float: left;
+		clear: left;
+	}
+}
