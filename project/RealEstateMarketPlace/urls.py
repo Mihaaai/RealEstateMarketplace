@@ -19,4 +19,5 @@ urlpatterns = [
     path('list/search/', views.SearchListListingsView.as_view(), name='search_listings'),
     path('list/<int:pk>/update', views.UpdateListingView.as_view(), name='update_listing'),
     path('list/<listing_id>/message', views.AddMessageAPI.as_view(), name='message'),
+    path('inbox/', views.ListMessagesView.as_view(), name='list_messages' ),
 ]
