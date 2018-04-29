@@ -25,6 +25,31 @@
 					alert("Error");
 			});
 		});
+		
+		$("#submitMessage").click(function(ev) {
+			ev.preventDefault();
+
+			listing_id = $(this).attr("data-list");
+			var post_data = {
+				'csrfmiddlewaretoken':"{{ csrf_token }}",
+				'message':$("#messageContent").val()
+			}
+			$.ajax({
+				url:"/list/"+listing_id+"/message",
+				type:'POST',
+				data:post_data,
+				success: function(data){
+					if(data["status"] == "ok") {
+						
+						$("#alertMessage").text(data["message"]);
+						$("#alertMessage").css("display", "block");
+						$("#alertMessage").delay(1000).fadeOut(400);
+					} else
+					alert("Error");
+				}
+			});
+			
+		}); 
 	}
 </script>
 
@@ -100,18 +125,14 @@
 		</table>
 
 		<br>
-		<span class="contact-seller">Contacteaza vanzatorul: </span>
+		<span class="contact-seller">Contact: </span>
+		<p>Scrie mesajul tau pentru {{listing.user_id.first_name}} aici.</p>
 
 		<form action="#" method="POST" class="col-sm-7 send-message-form">
 			<div class="form-group">
-				<label for="messageTitle">Titlu</label>
-				<input type="text" class="form-control" id="messageTitle" placeholder="Titlu">
+				<textarea class="form-control" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
 			</div>
-			<div class="form-group">
-				<label for="messageContent">Mesajul tau</label>
-				<textarea class="form-control" id="messageContent" rows="3"></textarea>
-			</div>
-			<button class="btn btn-primary" type="submit"><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
+			<button class="btn btn-primary" id="submitMessage" type="submit" data-list="{{ listing.id }}" ><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
 		</form>
 
 	</div>

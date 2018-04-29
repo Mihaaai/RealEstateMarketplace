@@ -13,3 +13,4 @@ from .SearchListListingsView import SearchListListingsView
 from .AddFavoriteListing import AddFavoriteListingAPI
 from .ListMyClosedListingsView import ListMyClosedListingsView
 from .UpdateListingView import UpdateListingView
+from .AddMessageView import AddMessageAPI
