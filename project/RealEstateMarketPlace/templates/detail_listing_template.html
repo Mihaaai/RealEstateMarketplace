@@ -32,7 +32,7 @@
 			listing_id = $(this).attr("data-list");
 			var post_data = {
 				'csrfmiddlewaretoken':"{{ csrf_token }}",
-				'message':$("#messageContent").val()
+				'message':$("#messageContent").val(),
 			}
 			$.ajax({
 				url:"/list/"+listing_id+"/message",

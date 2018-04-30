@@ -17,7 +17,7 @@
 					'receiver_id': {{uid}},
 				}
 				$.ajax({
-					url:"/list/"+listing_id+"/message",
+					url:"/list/"+ {{listing_id}} +"/message",
 					type:'POST',
 					data:post_data,
 					success: function(data){
@@ -49,7 +49,7 @@
 			<textarea class="form-control" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
 		</div>
 
-		<button class="btn btn-primary" id="submitMessage" type="submit" data-list="{{ listing_id }}" ><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
+		<button class="btn btn-primary" id="submitMessage" type="submit"><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
 	</form>
 
 	{% else %}

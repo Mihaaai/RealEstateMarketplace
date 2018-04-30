@@ -1,4 +1,3 @@
-from rest_framework.views import APIView
 from django.views.generic import DetailView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
@@ -7,6 +6,7 @@ from django.db.models import Q
 
 
 class DetailConversationView(DetailView):
+    
     authentication_classes = (authentication.SessionAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 

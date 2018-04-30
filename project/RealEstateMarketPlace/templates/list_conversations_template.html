@@ -14,10 +14,10 @@
 {% if conversations|length %}
 <ul>
 	{% for listing, users in conversations.items %}
-		<li><a href="{% url 'details_listing' listing.id %}"> {{ listing.title}} </a></li>
+		<li>Topic: <a href="{% url 'details_listing' listing.id %}"> {{ listing.title}} </a></li>
 		<ul>
 			{% for item in users %}
-			<li>From {{ item.first_name}} {{item.last_name}} - <a href="{%url 'details_conversation' pk=listing.id user_id=item.id%}">view conversation</a></li>
+			<li>From {{item.first_name}} {{item.last_name}} - <a href="{%url 'details_conversation' pk=listing.id user_id=item.id%}">view conversation</a></li>
 			{% endfor %}
 		</ul>
 		
@@ -27,7 +27,7 @@
 
 {% else %}
 
-<h5 class="listings-empty-content">No messages available.</h5>
+<h5 class="listings-empty-content">No conversation available.</h5>
 
 {% endif %}
 </div>

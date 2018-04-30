@@ -1,8 +1,12 @@
 from django.views.generic import ListView
-from django.db.models import Count
+from rest_framework import authentication, permissions
 from ..models import Message,Listing,User
 
 class ListConversationsView(ListView):
+ 
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
     template_name = 'list_conversations_template.html'
     context_object_name = 'conversations'
 
