@@ -14,4 +14,5 @@ from .AddFavoriteListing import AddFavoriteListingAPI
 from .ListMyClosedListingsView import ListMyClosedListingsView
 from .UpdateListingView import UpdateListingView
 from .AddMessageView import AddMessageAPI
-from .ListMessagesView import ListMessagesView
+from .ListConversationsView import ListConversationsView
+from .DetailConversationView import DetailConversationView
