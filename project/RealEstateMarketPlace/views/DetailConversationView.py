@@ -19,6 +19,8 @@ class DetailConversationView(DetailView):
 
         listing_id=self.kwargs['pk']
         user_id=self.kwargs['user_id']
+        context['uid']=user_id
+        context['listing_id']=listing_id
         listing = Listing.objects.get(id=listing_id)
         user = User.objects.get(id=user_id)
         messages = Message.objects.filter(listing_id = listing).filter((Q(sender_id = user) & Q(receiver_id = self.request.user)) | (Q(sender_id = self.request.user) & Q(receiver_id = user)) )
