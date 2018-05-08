@@ -18,9 +18,9 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 		estate = listing.estate_id
 
 		return {
-			'user_id': self.request.user.id,
 			'neighborhood': estate.neighborhood,
 			'partitioning': estate.partitioning,
+			'address': estate.address,
 			'image': estate.image,
 			'rooms': estate.rooms,
 			'bathrooms': estate.rooms,
@@ -29,4 +29,10 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 			'year': estate.year,
 			'price': estate.price
 		}
+
+
+	def form_valid(self, form):
+		self.object = form.save()
+		self.object.save()
+		return super(UpdateListingView, self).form_valid(form)
 

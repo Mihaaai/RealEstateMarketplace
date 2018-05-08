@@ -24,7 +24,7 @@
      style="{% if listing.estate_id.image %}background-image:url('{{ listing.estate_id.image.url }}{% endif %}');">
     	<div class='details-container'>
       		<div class='price-container'>
-        		<div class='city'>{{ listing.estate_id.neighborhood }}</div>
+        		<div class='neighborhood'>{{ listing.estate_id.neighborhood }}</div>
         		<div class='price'>{{ listing.estate_id.price|floatformat:-2 }}</div>
       		</div>
     	</div>

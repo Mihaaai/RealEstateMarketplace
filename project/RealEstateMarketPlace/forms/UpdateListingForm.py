@@ -41,7 +41,8 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 class UpdateListingForm(AddListingForm):
 
 	class Meta(AddListingForm.Meta):
-		fields = ['title', 'description', 'user_id']
+		fields = ['title', 'description']
+
 
 	# by assigning a picture widget, we have a preview of the current image
 	image = forms.ImageField(required=False, widget = PictureWidget)
