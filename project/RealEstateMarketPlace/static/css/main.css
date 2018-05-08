@@ -1,17 +1,26 @@
-body, html{
-    height:100%;
+body,
+html {
+    height: 100%;
+}
+
+a {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: rgba(0, 0, 0, 0.7) !important;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-.main-container{
+.main-container {
     min-height: 100%;
-    transition: margin-left .5s;
+    transition: margin-left 0.5s;
     position: relative;
     height: 100%;
 }
 
-
- /* The side navigation menu */
+/* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
@@ -35,12 +44,10 @@ body, html{
     transition: 0.3s;
 }
 
-
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
@@ -56,10 +63,14 @@ body, html{
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }
 
-.navbar{
+.navbar {
     border-bottom: 1px solid lightgrey;
 }
