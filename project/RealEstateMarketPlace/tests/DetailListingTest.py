@@ -1,15 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-from ..models import Listing, User, Estate
+from ..models import Listing, User, Estate, NEIGHBORHOOD_CHOICES, PARTITIONING_CHOICES
 
 class DetailListingTest(TestCase):
 	def setUp(self):
 		user = 	User.objects.create(email="admin@maildrop.com",password="admin123",
 			first_name="Mihai",last_name="Ghidoveanu",phone_number="0728622410")
-		estate = Estate.objects.create(city="Bucuresti")
+		estate = Estate.objects.create(neighborhood='Aviatiei')
 		Listing(title="TestListing",description="This is the listing",user_id=user,estate_id=estate).save()
-
 
 	def test_detail_listing_returns_a_listing(self):
 		listing = Listing.objects.all()[0]
@@ -32,7 +31,6 @@ class DetailListingTest(TestCase):
 		self.assertContains(response,listing.updated.month)
 		self.assertContains(response,listing.updated.day)
 		# check corresponding estate details
-		self.assertContains(response,listing.estate_id.city)
 		self.assertContains(response,listing.estate_id.address)
 		self.assertContains(response,listing.estate_id.price)
 		self.assertContains(response,listing.estate_id.rooms)
