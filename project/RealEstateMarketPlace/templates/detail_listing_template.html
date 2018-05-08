@@ -68,29 +68,35 @@
 
 {% if listing %}
 <div class="details-page-container">
-	<div class="buttons-container">
-		<a id="closeButton" type="button" 
-			{%if listing.is_closedd == True %} 
-				class="btn btn-light fav-button" 
-			{% else %}
-				class="btn btn-dark fav-button" 
+	<div class="buttons-container">		
+		{% if user.is_authenticated %}
+			{% if  user == listing.user_id %} <!-- if user owns current listing -->
+				<a id="closeButton" type="button" 
+					{%if listing.is_closed == True %} 
+						class="btn btn-light fav-button" 
+					{% else %}
+						class="btn btn-dark fav-button" 
+					{% endif %}
+					href="{% url 'close_listing' listing.id %}" data-list="{{ listing.id }}">
+					{% if listing.is_closed == True %}
+						<i class="fas fa-lock-open"></i> Open
+					{% else %}
+						<i class="fas fa-lock"></i> Close 
+					{% endif %}
+				</a>
+				<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
 			{% endif %}
-			href="{% url 'close_listing' listing.id %}" data-list="{{ listing.id }}">
-			{% if listing.is_closedd == True %}
-				<i class="fas fa-lock-open"></i> Open
-			{% else %}
-				<i class="fas fa-lock"></i> Close 
+			<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
+				{% if is_fav == 0 %}
+					<i class="far fa-star"></i> Add to favorites
+				{% else %}
+					<i class="fas fa-star"></i> Remove from favorites
+				{% endif %}
+			</a>
+			{% if user == listing.user_id %}
+				<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
 			{% endif %}
-		</a>
-		<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
-		<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
-			{% if is_fav == 0 %}
-				<i class="far fa-star"></i> Add to favorites
-			{% else %}
-				<i class="fas fa-star"></i> Remove from favorites
-			{% endif %}
-		</a>
-		<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
+		{% endif %}
 	</div>
 
 	<div class="my_details">

@@ -10,7 +10,7 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 		html = ""
 
 		# if the imageField has not an image yet
-		if value is None:
+		if not value :
 			html += """
 			Currently empty<br>
 			Add :
@@ -28,12 +28,10 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 			<input type="file" name="image" class="form-control" id="id_image">
 		"""
 
-		if value is not None:
-			html = Template(html)
-			if value is True:
-				html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
-			else:
-				html = html.substitute(link = "#",link_name = "No image")
+		if value:
+			html = Template(html)			
+			html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
+
 
 		return mark_safe(html)
 

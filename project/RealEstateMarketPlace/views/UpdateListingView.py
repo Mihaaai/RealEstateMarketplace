@@ -29,4 +29,3 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 			'year': estate.year,
 			'price': estate.price
 		}
-

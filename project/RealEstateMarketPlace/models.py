@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .user_manager import UserManager
+from django.core.validators import RegexValidator
 # from django.contrib.auth.models import User
 
 NEIGHBORHOOD_CHOICES = (
@@ -30,11 +31,13 @@ PARTITIONING_CHOICES = {
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    phone_regex = RegexValidator(regex=r'^\+?\d{10,11}$', 
+        message="Phone number must have exactly 10 digits and optionally begin with '+<international_prefix>' ")
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
-    phone_number = models.CharField(max_length=20, unique=True)
+    phone_number = models.CharField(validators = [phone_regex], max_length=20, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
