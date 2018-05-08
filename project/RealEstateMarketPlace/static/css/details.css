@@ -44,6 +44,12 @@
 	margin-top: 20px;
 }
 
+/*.listing-closed {
+	background-image: 'media/images/closed.png';
+	color : red;
+}
+*/
+
 .listing-image {
 	display: block;
 	width: 100%;
