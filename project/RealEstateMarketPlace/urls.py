@@ -21,9 +21,11 @@ urlpatterns = [
     # update
     path('list/<listing_id>/favorite', views.AddFavoriteListingAPI.as_view(), name='favorite'),
     path('list/<int:pk>/update', views.UpdateListingView.as_view(), name='update_listing'),
+    path('list/<listing_id>/message', views.AddMessageAPI.as_view(), name='message'),
+    path('inbox/', views.ListConversationsView.as_view(), name='inbox' ),
+    path('conversation/<int:pk>/<int:user_id>', views.DetailConversationView.as_view(), name='details_conversation'),
     path('profile/<int:pk>/update',views.UpdateProfileView.as_view(),name='update_profile'),
     path('list/<listing_id>/close',views.CloseListingAPI.as_view(),name='close_listing'),
     # delete
     path('list/<int:pk>/delete', views.DeleteListingView.as_view(), name='delete_listing'),
-
 ]

@@ -1,0 +1,62 @@
+{% extends "template.html" %}
+{% load static %}
+
+{% block title %}Messages{% endblock %}
+
+{% block styles %}
+	<script type="text/javascript">
+		window.onload = function() {
+			
+			$("#submitMessage").click(function(ev) {
+				ev.preventDefault();
+
+				listing_id = $(this).attr("data-list");
+				var post_data = {
+					'csrfmiddlewaretoken':"{{ csrf_token }}",
+					'message':$("#messageContent").val(),
+					'receiver_id': {{uid}},
+				}
+				$.ajax({
+					url:"/list/"+ {{listing_id}} +"/message",
+					type:'POST',
+					data:post_data,
+					success: function(data){
+						location.reload();
+					}
+				});
+				
+			}); 
+		}
+	</script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/list-listings.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+
+		
+	<div class='container'>
+	{% if conversation|length %}
+		<ul>
+			{% for message in conversation %}
+				<li><i>{{message.sender_id}} [{{message.date}}]:</i> {{message.message}}</li>
+			{% endfor %}
+		</ul>
+	
+	<form action="#" method="POST" class="col-sm-7 send-message-form">
+			<br/><br/><br/>
+		<div class="form-group">
+			<textarea class="form-control" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
+		</div>
+
+		<button class="btn btn-primary" id="submitMessage" type="submit"><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
+	</form>
+
+	{% else %}
+
+		<h5 class="listings-empty-content">No messages available.</h5>
+
+	{% endif %}
+	</div>
+
+{% endblock %}
