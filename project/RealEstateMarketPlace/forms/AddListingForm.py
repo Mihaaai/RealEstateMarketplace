@@ -42,3 +42,4 @@ class AddListingForm(forms.ModelForm):
         #listing.save()
 
         return listing
+
