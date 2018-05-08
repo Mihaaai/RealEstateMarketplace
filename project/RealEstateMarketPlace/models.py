@@ -69,7 +69,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    estate_id = models.ForeignKey(Estate, on_delete=models.CASCADE)
+    estate_id = models.ForeignKey(Estate,on_delete=models.SET_NULL,null = True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_closed = models.BooleanField(default=False)
