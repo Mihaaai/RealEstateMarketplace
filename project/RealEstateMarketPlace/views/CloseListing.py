@@ -5,43 +5,48 @@ from rest_framework import authentication, permissions
 from ..models import  Listing
 
 class CloseListingAPI(APIView):
-    """
-    View to list all users in the system.
-    
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
-    authentication_classes = (authentication.SessionAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+	"""
+	View to close and open a published listing
+	
+	* Requires token authentication.
+	"""
+	authentication_classes = (authentication.SessionAuthentication,)
+	permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, listing_id, format=None):
-        """
-        Adds or removes a listing from favorites.
-        """
-        try:
-            to_close_listing = Listing.objects.get(id=listing_id)
-        except Listing.DoesNotExist:
-            to_close_listing = None
+	def get(self, request, listing_id, format=None):
+		"""
+		Opens or closes a listing
+		"""
+		try:
+			to_close_listing = Listing.objects.get(id = listing_id)
+		except Listing.DoesNotExist:
+			to_close_listing = None
 
-        response = {}
+		owned_listings_ids = [l.id for l in Listing.objects.filter(user_id = request.user)]
+		is_listing_owned = int(listing_id) in owned_listings_ids
 
-        # this should not be necessary since we have declared above that the person who access this url needs IsAuthenticated permission
-        # if self.request.user.is_authenticated:
-        if to_close_listing:
-        	response['status'] = 'ok'
-        else:
-        	response['status'] = 'error'
-        # if the listing is already closed, we open it
-        if to_close_listing.is_closed:
-            to_close_listing.is_closed = False
-            to_close_listing.save()
-            response['message'] = 'Listing opened!'
-        else:
-            to_close_listing.is_closed = True
-            to_close_listing.save()
-            response['message'] = 'Listing closed!'
-        # else:
-        #     response['status'] = 'error'
-        #     response['message'] = 'You must be authenticated for this.'
+		response = {}
+		
+		if to_close_listing and is_listing_owned:
+			response['status'] = 'ok'
+		else:
+			response['status'] = 'error'
 
-        return Response(response)
+		# if the current listing is not owned by the current user, return an error
+		if not is_listing_owned:
+			response['message'] = "You can close only the listing you own " + listing_id
+			return Response(response)
+
+		# if the listing is already closed, we open it
+		if to_close_listing.is_closed:
+			to_close_listing.is_closed = False
+			to_close_listing.save()
+			response['message'] = 'Listing opened!'
+		else:
+			to_close_listing.is_closed = True
+			to_close_listing.save()
+			response['message'] = 'Listing closed!'
+		
+
+		return Response(response)
+

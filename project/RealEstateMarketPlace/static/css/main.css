@@ -44,6 +44,7 @@ a:hover {
     transition: 0.3s;
 }
 
+
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
@@ -63,6 +64,7 @@ a:hover {
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
+
     .sidenav {
         padding-top: 15px;
     }
