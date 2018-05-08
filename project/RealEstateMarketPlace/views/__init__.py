@@ -16,3 +16,5 @@ from .UpdateListingView import UpdateListingView
 from .AddMessageView import AddMessageAPI
 from .ListConversationsView import ListConversationsView
 from .DetailConversationView import DetailConversationView
+from .UpdateProfileView import UpdateProfileView
+from .CloseListing import CloseListingAPI

@@ -1,53 +1,11 @@
+
 {% extends "template.html" %}
 {% load static %}
 {% block title %}Listing Details{% endblock %}
 
 {% block styles %}
 
-<script type="text/javascript">
-	window.onload = function() {
-		$("#favButton").click(function(ev) {
-			ev.preventDefault();
-
-			listing_id = $(this).attr("data-list");
-
-			$.get("/list/" + listing_id + "/favorite", function(data) {
-				if(data["status"] == "ok") {
-					if(data["message"].indexOf("added") != -1)
-						$("#favButton").html('<i class="fas fa-star"></i> Remove from favorites');
-					else
-						$("#favButton").html('<i class="far fa-star"></i> Add to favorites');
-
-					$("#alertMessage").text(data["message"]);
-					$("#alertMessage").css("display", "block");
-					$("#alertMessage").delay(1000).fadeOut(400);
-				} else
-					alert("Error");
-			});
-		});
-		
-		$("#submitMessage").click(function(ev) {
-			ev.preventDefault();
-
-			listing_id = $(this).attr("data-list");
-			var post_data = {
-				'csrfmiddlewaretoken':"{{ csrf_token }}",
-				'message':$("#messageContent").val(),
-			}
-			$.ajax({
-				url:"/list/"+listing_id+"/message",
-				type:'POST',
-				data:post_data,
-				success: function(data){
-					$("#alertMessage").text(data["message"]);
-					$("#alertMessage").css("display", "block");
-					$("#alertMessage").delay(1000).fadeOut(400);
-				},
-			});
-			
-		}); 
-	}
-</script>
+<script type="text/javascript" src="{% static 'js/details-listing-functions.js' %}"></script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}" />
 
@@ -57,20 +15,40 @@
 
 {% if listing %}
 <div class="details-page-container">
-	<div class="buttons-container">
-		<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
-		<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
-			{% if is_fav == 0 %}
-				<i class="far fa-star"></i> Add to favorites
-			{% else %}
-				<i class="fas fa-star"></i> Remove from favorites
+	<div class="buttons-container">		
+		{% if user.is_authenticated %}
+			{% if  user == listing.user_id %} <!-- if user owns current listing -->
+				<a id="closeButton" type="button" 
+					{%if listing.is_closed == True %} 
+						class="btn btn-light fav-button" 
+					{% else %}
+						class="btn btn-dark fav-button" 
+					{% endif %}
+					href="{% url 'close_listing' listing.id %}" data-list="{{ listing.id }}">
+					{% if listing.is_closed == True %}
+						<i class="fas fa-lock-open"></i> Open
+					{% else %}
+						<i class="fas fa-lock"></i> Close 
+					{% endif %}
+				</a>
+				<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
 			{% endif %}
-		</a>
-		<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
+			<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
+				{% if is_fav == 0 %}
+					<i class="far fa-star"></i> Add to favorites
+				{% else %}
+					<i class="fas fa-star"></i> Remove from favorites
+				{% endif %}
+			</a>
+			{% if user == listing.user_id %}
+				<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
+			{% endif %}
+		{% endif %}
+
 	</div>
 
 	<div class="my_details">
-		<div>
+		<div id = "listing-header">
 			<h2 class="listing-title">{{listing.title}}</h2>
 		</div>
 
@@ -95,34 +73,36 @@
 		
 		<p class="listing-description">{{ listing.description }}</p>
 
-		<table class="table table-bordered table-responsive listing-features">
-			<tbody>
-				<tr scope="row">
-					<td class="td-white-right-borders cl-grey">Oras: </td>
-					<td>{{ listing.estate_id.city }}</td>
-					<td class="td-white-right-borders cl-grey">Adresa: </td>
-					<td>{{ listing.estate_id.address }}</td>
-					<td class="td-white-right-borders cl-grey">Nr camere: </td>
-					<td>{{ listing.estate_id.rooms }}</td>
-					<td class="td-white-right-borders cl-grey">Nr bai: </td>
-					<td>{{ listing.estate_id.bathrooms }}</td>
-				</tr>
-				<tr scope="row">
-					<td class="td-white-right-borders cl-grey">Suprafata: </td>
-					<td>{{ listing.estate_id.size|floatformat:-2 }} m&sup2;</td>
-					<td class="td-white-right-borders cl-grey">Etaj: </td>
-					<td>{{ listing.estate_id.floor }}</td>
-					<td class="td-white-right-borders cl-grey">An de finalizare: </td>
-					<td>{{ listing.estate_id.year }}</td>
-					<td class="td-white-right-borders cl-grey">Distanta fata de centru: </td>
-					<td>{{ listing.estate_id.distance_to_centre|floatformat:-2 }} km</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="table-responsive">
+			<table class="table table-bordered listing-features">
+				<tbody>
+					<tr scope="row">
+						<td class="td-white-right-borders cl-grey">Cartier: </td>
+						<td>{{ listing.estate_id.neighborhood }}</td>
+						<td class="td-white-right-borders cl-grey">Adresa: </td>
+						<td>{{ listing.estate_id.address }}</td>
+						<td class="td-white-right-borders cl-grey">Nr camere: </td>
+						<td>{{ listing.estate_id.rooms }}</td>
+						<td class="td-white-right-borders cl-grey">Nr bai: </td>
+						<td>{{ listing.estate_id.bathrooms }}</td>
+					</tr>
+					<tr scope="row">
+						<td class="td-white-right-borders cl-grey">Suprafata: </td>
+						<td>{{ listing.estate_id.size|floatformat:-2 }} m&sup2;</td>
+						<td class="td-white-right-borders cl-grey">Etaj: </td>
+						<td>{{ listing.estate_id.floor }}</td>
+						<td class="td-white-right-borders cl-grey">An de finalizare: </td>
+						<td>{{ listing.estate_id.year }}</td>
+						<td class="td-white-right-borders cl-grey">Distanta fata de centru: </td>
+						<td>{{ listing.estate_id.distance_to_centre|floatformat:-2 }} km</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
 		<br>
-		<span class="contact-seller">Contact: </span>
-		<p>Scrie mesajul tau pentru {{listing.user_id.first_name}} aici.</p>
+		<span class="contact-seller">Contacteaza vanzatorul: </span>
+    <p>Scrie mesajul tau pentru {{listing.user_id.first_name}} aici.</p>
 
 		<form action="#" method="POST" class="col-sm-7 send-message-form">
 			<div class="form-group">
