@@ -24,6 +24,38 @@
 				} else
 					alert("Error");
 			});
+
+
+		});
+
+		$("#closeButton").click(function(ev) {
+			ev.preventDefault();
+
+			listing_id = $(this).attr("data-list");
+
+			$.get("/list/" + listing_id + "/close", function(data) {
+				if(data["status"] == "ok") {
+					if(data["message"].indexOf("opened") != -1)	//if listing is opened
+					{
+						$("#closeButton").html('<i class="fas fa-lock"></i> Close');
+						$("#closeButton").attr('class','btn btn-dark fav-button');
+						$("#listing-header").removeClass('listing-closed');
+					}
+					else
+					{
+						$("#listing-header").addClass('listing-closed');
+						$("#closeButton").html('<i class="fas fa-lock-open"></i> Open');
+						$("#closeButton").attr('class','btn btn-light fav-button');
+					}
+
+					$("#alertMessage").text(data["message"]);
+					$("#alertMessage").css("display", "block");
+					$("#alertMessage").delay(1000).fadeOut(400);
+				} else
+					alert("Error");
+			});
+
+			
 		});
 	}
 </script>
@@ -37,6 +69,19 @@
 {% if listing %}
 <div class="details-page-container">
 	<div class="buttons-container">
+		<a id="closeButton" type="button" 
+			{%if listing.is_closedd == True %} 
+				class="btn btn-light fav-button" 
+			{% else %}
+				class="btn btn-dark fav-button" 
+			{% endif %}
+			href="{% url 'close_listing' listing.id %}" data-list="{{ listing.id }}">
+			{% if listing.is_closedd == True %}
+				<i class="fas fa-lock-open"></i> Open
+			{% else %}
+				<i class="fas fa-lock"></i> Close 
+			{% endif %}
+		</a>
 		<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
 		<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
 			{% if is_fav == 0 %}
@@ -49,7 +94,7 @@
 	</div>
 
 	<div class="my_details">
-		<div>
+		<div id = "listing-header">
 			<h2 class="listing-title">{{listing.title}}</h2>
 		</div>
 

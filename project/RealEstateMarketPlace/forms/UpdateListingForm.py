@@ -30,7 +30,10 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 
 		if value is not None:
 			html = Template(html)
-			html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
+			if value is True:
+				html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
+			else:
+				html = html.substitute(link = "#",link_name = "No image")
 
 		return mark_safe(html)
 
@@ -38,7 +41,7 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 class UpdateListingForm(AddListingForm):
 
 	class Meta(AddListingForm.Meta):
-		fields = ['title', 'description', 'user_id', 'is_closed']
+		fields = ['title', 'description', 'user_id']
 
 	# by assigning a picture widget, we have a preview of the current image
 	image = forms.ImageField(required=False, widget = PictureWidget)
