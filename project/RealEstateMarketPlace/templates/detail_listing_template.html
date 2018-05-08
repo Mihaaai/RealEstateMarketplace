@@ -39,14 +39,10 @@
 				type:'POST',
 				data:post_data,
 				success: function(data){
-					if(data["status"] == "ok") {
-						
-						$("#alertMessage").text(data["message"]);
-						$("#alertMessage").css("display", "block");
-						$("#alertMessage").delay(1000).fadeOut(400);
-					} else
-					alert("Error");
-				}
+					$("#alertMessage").text(data["message"]);
+					$("#alertMessage").css("display", "block");
+					$("#alertMessage").delay(1000).fadeOut(400);
+				},
 			});
 			
 		}); 

@@ -22,9 +22,13 @@ class AddMessageAPI(APIView):
             response['status']= 'error'
 
         """
-        TODO: Check if request.user != listing.user_id
         TODO: Check if request.POST.get('message',"") != null
         """ 
+        if(request.user == listing.user_id):
+            response['status'] = 'error'
+            response['message'] = 'You can\'t send messages to yourself'
+            return Response(response)
+
         if request.POST.get('receiver_id',"") != '' :
             receiver_id = User.objects.get(id = request.POST.get('receiver_id',""))
         else:
