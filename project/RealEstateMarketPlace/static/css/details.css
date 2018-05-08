@@ -51,6 +51,8 @@
 */
 
 .listing-image {
+	border-radius: 10px;
+	/*border: 1px solid grey;*/
 	display: block;
 	width: 100%;
 	height: auto;
@@ -139,5 +141,6 @@
 	.btn.fav-button, .btn-warning.fav-button, .btn-success.fav-button, .btn-danger.fav-button {
 		float: left;
 		clear: left;
+		margin-bottom: 10px;
 	}
 }

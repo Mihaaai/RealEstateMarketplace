@@ -4,61 +4,7 @@
 
 {% block styles %}
 
-<script type="text/javascript">
-	window.onload = function() {
-		$("#favButton").click(function(ev) {
-			ev.preventDefault();
-
-			listing_id = $(this).attr("data-list");
-
-			$.get("/list/" + listing_id + "/favorite", function(data) {
-				if(data["status"] == "ok") {
-					if(data["message"].indexOf("added") != -1)
-						$("#favButton").html('<i class="fas fa-star"></i> Remove from favorites');
-					else
-						$("#favButton").html('<i class="far fa-star"></i> Add to favorites');
-
-					$("#alertMessage").text(data["message"]);
-					$("#alertMessage").css("display", "block");
-					$("#alertMessage").delay(1000).fadeOut(400);
-				} else
-					alert("Error");
-			});
-
-
-		});
-
-		$("#closeButton").click(function(ev) {
-			ev.preventDefault();
-
-			listing_id = $(this).attr("data-list");
-
-			$.get("/list/" + listing_id + "/close", function(data) {
-				if(data["status"] == "ok") {
-					if(data["message"].indexOf("opened") != -1)	//if listing is opened
-					{
-						$("#closeButton").html('<i class="fas fa-lock"></i> Close');
-						$("#closeButton").attr('class','btn btn-dark fav-button');
-						$("#listing-header").removeClass('listing-closed');
-					}
-					else
-					{
-						$("#listing-header").addClass('listing-closed');
-						$("#closeButton").html('<i class="fas fa-lock-open"></i> Open');
-						$("#closeButton").attr('class','btn btn-light fav-button');
-					}
-
-					$("#alertMessage").text(data["message"]);
-					$("#alertMessage").css("display", "block");
-					$("#alertMessage").delay(1000).fadeOut(400);
-				} else
-					alert("Error");
-			});
-
-			
-		});
-	}
-</script>
+<script type="text/javascript" src="{% static 'js/details-listing-functions.js' %}"></script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}" />
 
@@ -119,30 +65,32 @@
 		
 		<p class="listing-description">{{ listing.description }}</p>
 
-		<table class="table table-bordered table-responsive listing-features">
-			<tbody>
-				<tr scope="row">
-					<td class="td-white-right-borders cl-grey">Oras: </td>
-					<td>{{ listing.estate_id.city }}</td>
-					<td class="td-white-right-borders cl-grey">Adresa: </td>
-					<td>{{ listing.estate_id.address }}</td>
-					<td class="td-white-right-borders cl-grey">Nr camere: </td>
-					<td>{{ listing.estate_id.rooms }}</td>
-					<td class="td-white-right-borders cl-grey">Nr bai: </td>
-					<td>{{ listing.estate_id.bathrooms }}</td>
-				</tr>
-				<tr scope="row">
-					<td class="td-white-right-borders cl-grey">Suprafata: </td>
-					<td>{{ listing.estate_id.size|floatformat:-2 }} m&sup2;</td>
-					<td class="td-white-right-borders cl-grey">Etaj: </td>
-					<td>{{ listing.estate_id.floor }}</td>
-					<td class="td-white-right-borders cl-grey">An de finalizare: </td>
-					<td>{{ listing.estate_id.year }}</td>
-					<td class="td-white-right-borders cl-grey">Distanta fata de centru: </td>
-					<td>{{ listing.estate_id.distance_to_centre|floatformat:-2 }} km</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="table-responsive">
+			<table class="table table-bordered listing-features">
+				<tbody>
+					<tr scope="row">
+						<td class="td-white-right-borders cl-grey">Oras: </td>
+						<td>{{ listing.estate_id.city }}</td>
+						<td class="td-white-right-borders cl-grey">Adresa: </td>
+						<td>{{ listing.estate_id.address }}</td>
+						<td class="td-white-right-borders cl-grey">Nr camere: </td>
+						<td>{{ listing.estate_id.rooms }}</td>
+						<td class="td-white-right-borders cl-grey">Nr bai: </td>
+						<td>{{ listing.estate_id.bathrooms }}</td>
+					</tr>
+					<tr scope="row">
+						<td class="td-white-right-borders cl-grey">Suprafata: </td>
+						<td>{{ listing.estate_id.size|floatformat:-2 }} m&sup2;</td>
+						<td class="td-white-right-borders cl-grey">Etaj: </td>
+						<td>{{ listing.estate_id.floor }}</td>
+						<td class="td-white-right-borders cl-grey">An de finalizare: </td>
+						<td>{{ listing.estate_id.year }}</td>
+						<td class="td-white-right-borders cl-grey">Distanta fata de centru: </td>
+						<td>{{ listing.estate_id.distance_to_centre|floatformat:-2 }} km</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
 		<br>
 		<span class="contact-seller">Contacteaza vanzatorul: </span>
