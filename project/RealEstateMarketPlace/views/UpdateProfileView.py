@@ -1,7 +1,9 @@
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.shortcuts import redirect
+
 
 from ..forms import RegisterForm, UpdateProfileForm
 from ..models import User
@@ -37,3 +39,4 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 			return super().post(request,args,kwargs)
 		else:
 			return redirect('list_listings')		
+

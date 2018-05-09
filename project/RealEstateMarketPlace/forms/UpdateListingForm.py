@@ -28,6 +28,7 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 			<input type="file" name="image" class="form-control" id="id_image">
 		"""
 
+
 		if value:
 			html = Template(html)			
 			html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
@@ -39,7 +40,8 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 class UpdateListingForm(AddListingForm):
 
 	class Meta(AddListingForm.Meta):
-		fields = ['title', 'description', 'user_id']
+		fields = ['title', 'description']
+
 
 	# by assigning a picture widget, we have a preview of the current image
 	image = forms.ImageField(required=False, widget = PictureWidget)

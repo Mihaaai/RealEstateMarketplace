@@ -20,9 +20,9 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 		estate = listing.estate_id
 
 		return {
-			'user_id': self.request.user.id,
 			'neighborhood': estate.neighborhood,
 			'partitioning': estate.partitioning,
+			'address': estate.address,
 			'image': estate.image,
 			'rooms': estate.rooms,
 			'bathrooms': estate.rooms,
@@ -31,7 +31,7 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 			'year': estate.year,
 			'price': estate.price
 		}
-
+  
 	# admits only updates regarding the listings owned by the current user
 	def get(self,request,*args,**kwargs):
 		owned_listings_pk = [l.pk for l in Listing.objects.filter(user_id = request.user)]
@@ -46,5 +46,10 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
 			return super().post(request,args,kwargs)
 		else:
 			return redirect('list_listings')		
+
+	def form_valid(self, form):
+		self.object = form.save()
+		self.object.save()
+		return super(UpdateListingView, self).form_valid(form)
 
 
