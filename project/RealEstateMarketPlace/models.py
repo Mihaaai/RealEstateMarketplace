@@ -66,6 +66,7 @@ class Estate(models.Model):
         max_length=30, choices=PARTITIONING_CHOICES, default='Aviatiei')
     neighborhood = models.CharField(
         max_length=30, choices=NEIGHBORHOOD_CHOICES, default='Decomandat')
+    trained = models.BooleanField(default=False)
 
 
 class Listing(models.Model):

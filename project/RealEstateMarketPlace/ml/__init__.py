@@ -1,1 +1,1 @@
-from .core import predict
+from .core import predict, retrain

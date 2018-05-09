@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ..forms import AddListingForm
 from ..models import Listing
+from ..ml import retrain
+import pdb
 
 
 class AddListingView(LoginRequiredMixin, CreateView):
@@ -13,11 +15,9 @@ class AddListingView(LoginRequiredMixin, CreateView):
     template_name = 'add_listing_template.html'
     model = Listing
 
-
     def form_valid(self, form):
-        self.object = form.save()
+        self.object = form.save(commit=False)
         self.object.user_id = self.request.user
         self.object.save()
+
         return super(AddListingView, self).form_valid(form)
-
-

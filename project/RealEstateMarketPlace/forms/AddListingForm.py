@@ -1,7 +1,7 @@
 from django import forms
 from django.db import transaction
 from ..models import Estate, Listing, User, NEIGHBORHOOD_CHOICES, PARTITIONING_CHOICES
-from ..ml import predict
+from ..ml import predict, retrain
 import pdb
 
 
@@ -29,7 +29,7 @@ class AddListingForm(forms.ModelForm):
     price = forms.FloatField(required=True, min_value=0)
 
     @transaction.atomic
-    def save(self):
+    def save(self, commit=True):
         estate = Estate(neighborhood=self.cleaned_data['neighborhood'],
                         partitioning=self.cleaned_data['partitioning'],
                         address=self.cleaned_data['address'],
@@ -41,23 +41,29 @@ class AddListingForm(forms.ModelForm):
                         image=self.cleaned_data['image'],
                         bathrooms=self.cleaned_data['bathrooms'],
                         )
-        raw_info = {
-            'year': estate.year,
-            'bathrooms': estate.bathrooms,
-            'floor': estate.floor,
-            'rooms': estate.rooms,
-            'size': estate.size,
-            'neighborhood': estate.neighborhood,
-            'partitioning': estate.partitioning,
-        }
+        if commit is True:
+            raw_info = {
+                'year': estate.year,
+                'bathrooms': estate.bathrooms,
+                'floor': estate.floor,
+                'rooms': estate.rooms,
+                'size': estate.size,
+                'neighborhood': estate.neighborhood,
+                'partitioning': estate.partitioning,
+            }
 
-        estimated = predict(raw_info)
-        estate.estimated_price = estimated
-        estate.save()
+            estimated = predict(raw_info)
+            estate.estimated_price = estimated
+        # pdb.set_trace()
+            estate.save()
 
         listing = super().save(commit=False)
-        listing.estate_id = estate
-        listing.ordering = estimated - estate.price
-        # listing.save()
+
+        if commit is True:
+            listing.estate_id = estate
+            listing.ordering = estimated - estate.price
+            listing.save()
+            if estate.id % 200 == 0:
+                retrain()
 
         return listing
