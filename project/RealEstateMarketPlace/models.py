@@ -23,21 +23,22 @@ NEIGHBORHOOD_CHOICES = (
 )
 
 PARTITIONING_CHOICES = (
-    ('Decomandat', 'Decomandat'),
-    ('Semidecomandat', 'Semidecomandat'),
-    ('Nedecomandat', 'Nedecomandat'),
     ('Circular', 'Circular'),
+    ('Decomandat', 'Decomandat'),
+    ('Nedecomandat', 'Nedecomandat'),
+    ('Semidecomandat', 'Semidecomandat'),
 )
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    phone_regex = RegexValidator(regex=r'^\+?\d{10,11}$', 
-        message="Phone number must have exactly 10 digits and optionally begin with '+<international_prefix>' ")
+    phone_regex = RegexValidator(regex=r'^\+?\d{10,11}$',
+                                 message="Phone number must have exactly 10 digits and optionally begin with '+<international_prefix>' ")
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
-    phone_number = models.CharField(validators = [phone_regex], max_length=20, unique=True)
+    phone_number = models.CharField(
+        validators=[phone_regex], max_length=20, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
@@ -61,15 +62,17 @@ class Estate(models.Model):
     year = models.PositiveIntegerField(default=1900)
     image = models.ImageField(upload_to='images', null=True, max_length=None)
     bathrooms = models.PositiveSmallIntegerField(default=0)
-    partitioning = models.CharField(max_length=30, choices=PARTITIONING_CHOICES, default='Aviatiei')
-    neighborhood = models.CharField(max_length=30, choices=NEIGHBORHOOD_CHOICES, default='Decomandat')
+    partitioning = models.CharField(
+        max_length=30, choices=PARTITIONING_CHOICES, default='Aviatiei')
+    neighborhood = models.CharField(
+        max_length=30, choices=NEIGHBORHOOD_CHOICES, default='Decomandat')
 
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    estate_id = models.ForeignKey(Estate,on_delete=models.SET_NULL,null = True)
+    estate_id = models.ForeignKey(Estate, on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_closed = models.BooleanField(default=False)
@@ -88,8 +91,10 @@ class FavoriteListing(models.Model):
 
 class Message(models.Model):
     message = models.TextField()
-    sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
-    receiver_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    sender_id = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='sender')
+    receiver_id = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='receiver')
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
 

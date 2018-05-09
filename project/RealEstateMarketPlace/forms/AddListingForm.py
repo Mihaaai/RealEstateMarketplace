@@ -1,6 +1,8 @@
 from django import forms
 from django.db import transaction
 from ..models import Estate, Listing, User, NEIGHBORHOOD_CHOICES, PARTITIONING_CHOICES
+from ..ml import predict
+import pdb
 
 
 class AddListingForm(forms.ModelForm):
@@ -13,13 +15,15 @@ class AddListingForm(forms.ModelForm):
 
     address = forms.CharField(max_length=100, required=False)
     image = forms.ImageField(required=False)
-    partitioning = forms.ChoiceField(choices=PARTITIONING_CHOICES, required=True)
-    neighborhood = forms.ChoiceField(choices=NEIGHBORHOOD_CHOICES, required=True)
+    partitioning = forms.ChoiceField(
+        choices=PARTITIONING_CHOICES, required=True)
+    neighborhood = forms.ChoiceField(
+        choices=NEIGHBORHOOD_CHOICES, required=True)
     rooms = forms.IntegerField(required=True, min_value=1, max_value=10)
     bathrooms = forms.IntegerField(required=True, min_value=0, max_value=5)
-    floor = forms.IntegerField(required=True, min_value=0, max_value=20)
-    size = forms.FloatField(required=True, min_value=10, max_value=200)
-    year = forms.IntegerField(required=True, min_value=1900, max_value=2018)
+    floor = forms.IntegerField(required=True, min_value=-1, max_value=14)
+    size = forms.FloatField(required=True, min_value=20, max_value=300)
+    year = forms.IntegerField(required=True, min_value=1900, max_value=2020)
     price = forms.FloatField(required=True, min_value=0)
 
     @transaction.atomic
@@ -35,11 +39,22 @@ class AddListingForm(forms.ModelForm):
                         image=self.cleaned_data['image'],
                         bathrooms=self.cleaned_data['bathrooms'],
                         )
+        raw_info = {
+            'year': estate.year,
+            'bathrooms': estate.bathrooms,
+            'floor': estate.floor,
+            'rooms': estate.rooms,
+            'size': estate.size,
+            'neighborhood': estate.neighborhood,
+            'partitioning': estate.partitioning,
+        }
+
+        estimated = predict(raw_info)
+        estate.estimated_price = estimated
         estate.save()
 
         listing = super().save(commit=False)
         listing.estate_id = estate
-        #listing.save()
+        # listing.save()
 
         return listing
-
