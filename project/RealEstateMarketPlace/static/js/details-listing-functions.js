@@ -26,7 +26,7 @@ window.onload = function() {
 			'message':$("#messageContent").val(),
 		}
 		$.ajax({
-			url:"/list/"+listing_id+"/message",
+			url:"/"+listing_id+"/message",
 			type:'POST',
 			data:post_data,
 			success: function(data){
@@ -43,7 +43,7 @@ window.onload = function() {
 
 		listing_id = $(this).attr("data-list");
 
-		$.get("/list/" + listing_id + "/favorite", function(data) {
+		$.get("/" + listing_id + "/favorite", function(data) {
 			if(data["status"] == "ok") {
 				if(data["message"].indexOf("added") != -1)
 					$("#favButton").html('<i class="fas fa-star"></i> Remove from favorites');
@@ -63,7 +63,7 @@ window.onload = function() {
 
 		listing_id = $(this).attr("data-list");
 
-		$.get("/list/" + listing_id + "/close", function(data) {
+		$.get("/" + listing_id + "/close", function(data) {
 			if(data["status"] == "ok") {
 				if(data["message"].indexOf("opened") != -1)	//if listing is opened
 				{
