@@ -26,7 +26,7 @@ window.onload = function() {
 			'message':$("#messageContent").val(),
 		}
 		$.ajax({
-			url:"/"+listing_id+"/message",
+			url:"/"+listing_id+"/message/",
 			type:'POST',
 			data:post_data,
 			success: function(data){
