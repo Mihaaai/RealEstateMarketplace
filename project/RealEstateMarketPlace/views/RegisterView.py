@@ -13,10 +13,6 @@ class RegisterView(CreateView):
     model = User
 
     def get_success_url(self):
-<<<<<<< Updated upstream
-
-        return reverse('homepage')
-=======
         return reverse('list_listings')
 
     # INFO currently not working properly
@@ -33,4 +29,4 @@ class RegisterView(CreateView):
     #   	login(self.request, user)
 
     #   return super().form_valid(form)
->>>>>>> Stashed changes
+
