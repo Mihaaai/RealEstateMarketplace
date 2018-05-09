@@ -7,6 +7,7 @@ from ..forms import UpdateListingForm
 from ..models import Listing
 
 
+
 class UpdateListingView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('list_listings')
@@ -53,3 +54,4 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
         self.object = form.save()
         self.object.save()
         return super(UpdateListingView, self).form_valid(form)
+

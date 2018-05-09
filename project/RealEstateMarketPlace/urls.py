@@ -27,4 +27,5 @@ urlpatterns = [
     path('<listing_id>/close/',views.CloseListingAPI.as_view(),name='close_listing'),
     # delete
     path('<int:pk>/delete/', views.DeleteListingView.as_view(), name='delete_listing'),
+
 ]
