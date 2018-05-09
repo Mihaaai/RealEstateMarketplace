@@ -4,20 +4,20 @@
 {% block title %}Inbox{% endblock %}
 
 {% block styles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/list-listings.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/conversation.css' %}" />
 {% endblock %}
 
 
 {% block content %}
-<div class='container'>
+<div>
 
 {% if conversations|length %}
-<ul>
+<ul class="message-box">
 	{% for listing, users in conversations.items %}
-		<li>Topic: <a href="{% url 'details_listing' listing.id %}"> {{ listing.title}} </a></li>
+		<li class = "container darker">Topic: <a href="{% url 'details_listing' listing.id %}"> {{ listing.title}} </a></li>
 		<ul>
 			{% for item in users %}
-			<li>From {{item.first_name}} {{item.last_name}} - <a href="{%url 'details_conversation' pk=listing.id user_id=item.id%}">view conversation</a></li>
+			<li class="container"><a href="{%url 'details_conversation' pk=listing.id user_id=item.id%}">View conversation</a> with  {{item.first_name}} {{item.last_name}}</li>
 			{% endfor %}
 		</ul>
 		

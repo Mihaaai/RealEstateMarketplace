@@ -17,10 +17,11 @@
 					'receiver_id': {{uid}},
 				}
 				$.ajax({
-					url:"/list/"+ {{listing_id}} +"/message",
+					url:"/" + {{listing_id}} + "/message/",
 					type:'POST',
 					data:post_data,
 					success: function(data){
+						$("#messageContent").val("");
 						location.reload();
 					}
 				});
@@ -28,28 +29,37 @@
 			}); 
 		}
 	</script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/list-listings.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/conversation.css' %}" />
 {% endblock %}
 
 
 {% block content %}
-
 		
-	<div class='container'>
+	<div >
 	{% if conversation|length %}
-		<ul>
+		<ul class = "message-box">
 			{% for message in conversation %}
-				<li><i>{{message.sender_id}} [{{message.date}}]:</i> {{message.message}}</li>
+				{%if message.receiver_id.id == uid %}
+					<li class = "container" >
+						<p>{{message.message}}</p>
+						<span class="time-left"><i>You wrote on {{message.date}}</i> </span>
+					</li>
+				{%else%}
+					<li class = "container darker" >
+						<p>{{message.message}}</p>
+						<span class="time-right"><i>{{message.sender_id}} wrote on {{message.date}}</i> </span>
+					</li>
+				{%endif%}
 			{% endfor %}
 		</ul>
 	
-	<form action="#" method="POST" class="col-sm-7 send-message-form">
+	<form action="#" method="POST" class="col-sm-7 send-message-form writer-form">
 			<br/><br/><br/>
 		<div class="form-group">
-			<textarea class="form-control" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
+			<textarea class="form-control writer-box" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
 		</div>
 
-		<button class="btn btn-primary" id="submitMessage" type="submit"><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
+		<button class="btn btn-primary writer-button" id="submitMessage" type="submit"><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
 	</form>
 
 	{% else %}
