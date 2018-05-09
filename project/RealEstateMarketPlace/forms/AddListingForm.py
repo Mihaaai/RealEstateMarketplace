@@ -13,6 +13,8 @@ class AddListingForm(forms.ModelForm):
             'title', 'description',
         )
 
+    description = forms.CharField(
+        widget=forms.Textarea, max_length=1000, required=False)
     address = forms.CharField(max_length=100, required=False)
     image = forms.ImageField(required=False)
     partitioning = forms.ChoiceField(
@@ -55,6 +57,7 @@ class AddListingForm(forms.ModelForm):
 
         listing = super().save(commit=False)
         listing.estate_id = estate
+        listing.ordering = estimated - estate.price
         # listing.save()
 
         return listing

@@ -58,7 +58,7 @@ class Estate(models.Model):
     rooms = models.PositiveSmallIntegerField(default=0)
     floor = models.PositiveSmallIntegerField(default=0)
     size = models.FloatField(default=0)
-    estimated_price = models.FloatField(null=True)
+    estimated_price = models.FloatField(default=0, null=True)
     year = models.PositiveIntegerField(default=1900)
     image = models.ImageField(upload_to='images', null=True, max_length=None)
     bathrooms = models.PositiveSmallIntegerField(default=0)
@@ -70,12 +70,13 @@ class Estate(models.Model):
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     estate_id = models.ForeignKey(Estate, on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_closed = models.BooleanField(default=False)
+    ordering = models.FloatField(default=0, null=True)
 
 
 class FavoriteListing(models.Model):

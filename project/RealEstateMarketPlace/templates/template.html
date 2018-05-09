@@ -44,11 +44,15 @@
                                 <a class="nav-link" href="{% url 'inbox' %}">View Inbox</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'list_my_listings' %}">My Listings</a>
+                                <a class="nav-link" href="{% url 'list_my_listings' %}">My listings</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'fav_listings' %}">Favorites</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'update_profile' user.id %}">Update profile</a>
+                            </li>
+
                         </ul>
                     </li>
                     <li class="nav-item">

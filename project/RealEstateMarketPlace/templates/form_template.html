@@ -2,18 +2,15 @@
 
 
 <form action="" method="POST" enctype="multipart/form-data" class="form">
-    {% csrf_token %}
-    {% for field in form.visible_fields %}
-        <div class="form-group">
-            {{ field.errors|escape }}
-            {{ field.label_tag }}
-            {{ field|add_class:"form-control" }}
-            {% if field.help_text %}
-            <p class="help">{{ field.help_text|safe }}</p>
-            {% endif %}
-        </div>
+    {% csrf_token %} {% for field in form.visible_fields %}
+    <div class="form-group">
+        {{ field.errors|escape }} {{ field.label_tag }} {% if field.name == 'size' %}
+        <em>(m&sup2;)</em> {% elif field.name == 'price' %}
+        <em>(&euro;)</em> {% endif %} {{ field|add_class:"form-control"}}
+        <p class="help">{{ field.help_text|safe }}</p>
+    </div>
     {% endfor %}
 
-    <input type="submit" class="btn btn-primary" value="Submit"/>
+    <input type="submit" class="btn btn-primary" value="Submit" />
 
 </form>

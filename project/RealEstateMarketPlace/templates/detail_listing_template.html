@@ -1,115 +1,102 @@
-
-{% extends "template.html" %}
-{% load static %}
-{% block title %}Listing Details{% endblock %}
-
-{% block styles %}
+ {% extends "template.html" %} {% load static %} {% block title %}Listing Details{% endblock %} {% block styles %}
 
 <script type="text/javascript" src="{% static 'js/details-listing-functions.js' %}"></script>
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}" />
-
-{% endblock %}
-
-{% block content %}
-
-{% if listing %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}" /> {% endblock %} {% block content %} {% if listing %}
 <div class="details-page-container">
-	<div class="buttons-container">		
-		{% if user.is_authenticated %}
-			{% if  user == listing.user_id %} <!-- if user owns current listing -->
-				<a id="closeButton" type="button" 
-					{%if listing.is_closed == True %} 
-						class="btn btn-light fav-button" 
-					{% else %}
-						class="btn btn-dark fav-button" 
-					{% endif %}
-					href="{% url 'close_listing' listing.id %}" data-list="{{ listing.id }}">
-					{% if listing.is_closed == True %}
-						<i class="fas fa-lock-open"></i> Open
-					{% else %}
-						<i class="fas fa-lock"></i> Close 
-					{% endif %}
-				</a>
-				<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
-			{% endif %}
-			<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
-				{% if is_fav == 0 %}
-					<i class="far fa-star"></i> Add to favorites
-				{% else %}
-					<i class="fas fa-star"></i> Remove from favorites
-				{% endif %}
-			</a>
-			{% if user == listing.user_id %}
-				<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
-			{% endif %}
+	<div class="buttons-container">
+		{% if user.is_authenticated %} {% if user == listing.user_id %}
+		<!-- if user owns current listing -->
+		<a id="closeButton" type="button" {% if listing.is_closed is True %} class="btn btn-light fav-button" {% else %} class="btn btn-dark fav-button"
+		 {% endif %} href="{% url 'close_listing' listing.id %}" data-list="{{ listing.id }}">
+			{% if listing.is_closed is True %}
+			<i class="fas fa-lock-open"></i> Open {% else %}
+			<i class="fas fa-lock"></i> Close {% endif %}
+		</a>
+		<a type="button" class="btn btn-warning fav-button" href="{% url 'update_listing' listing.id%}">Update</a>
 		{% endif %}
+		<a id="favButton" type="button" class="btn btn-success fav-button" href="{% url 'favorite' listing.id %}" data-list="{{ listing.id }}">
+			{% if is_fav == 0 %}
+			<i class="far fa-star"></i> Add to favorites {% else %}
+			<i class="fas fa-star"></i> Remove from favorites {% endif %}
+		</a>
+		{% if user == listing.user_id %}
+		<a type="button" class="btn btn-danger fav-button" href="{% url 'delete_listing' listing.id %}">Delete</a>
+		{% endif %} {% endif %}
 
 	</div>
 
 	<div class="my_details">
-		<div id = "listing-header">
+		<div id="listing-header">
 			<h2 class="listing-title">{{listing.title}}</h2>
+			<p class="listing-added-date">Added at: {{ listing.created|date:"H:m - d b Y" }}</p>
 		</div>
 
 		<div class="seller-information">
 			<h3>{{ listing.estate_id.price|floatformat:-2}} &euro;</h3>
+			{% if is_owner %}
+			<h6 class='estimated'>Estimated: {{ listing.estate_id.estimated_price|floatformat:-2}} &euro;
+			</h6>
+			{% endif %}
+			<a href="#" class="btn btn-primary call-button">
+				<i class="fas fa-phone call-icon"></i> {{ listing.user_id.phone_number }}</a>
+			<br>
+			<br>
+			<br>
+			<a href="#">
+				<h4>{{listing.user_id.first_name}}</h4>
+			</a>
 
-			<a href="#" class="btn btn-primary call-button"><i class="fas fa-phone call-icon"></i> {{ listing.user_id.phone_number }}</a>
-			<br>
-			<br>
-			<br>
-			<a href="#"><h4>{{listing.user_id.first_name}}</h4></a>
-
-			<small>Utilizator inregistrat in {{ listing.user_id.created|date:"b Y" }}</small>
+			<small>User registrations: {{ listing.user_id.created|date:"b Y" }}</small>
 			<br>
 
-			<a href="#" class="btn btn-info">Vezi toate anunturile</a>
+			<!--<a href="#" class="btn btn-info">Vezi toate anunturile</a>-->
 		</div>
 
 		<div class="image-container">
-			<img src="{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}{% endif %}" class="listing-image">
+			<img src="{% if listing.estate_id.image %}{{ listing.estate_id.image.url }}
+				{% else %}https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png{% endif %}"
+			 class="listing-image">
 		</div>
-		
 		<p class="listing-description">{{ listing.description }}</p>
 
 		<div class="table-responsive">
 			<table class="table table-bordered listing-features">
 				<tbody>
 					<tr scope="row">
-						<td class="td-white-right-borders cl-grey">Cartier: </td>
+						<td class="td-white-right-borders cl-grey">Neighborhood: </td>
 						<td>{{ listing.estate_id.neighborhood }}</td>
-						<td class="td-white-right-borders cl-grey">Adresa: </td>
+						<td class="td-white-right-borders cl-grey">Address: </td>
 						<td>{{ listing.estate_id.address }}</td>
-						<td class="td-white-right-borders cl-grey">Nr camere: </td>
+						<td class="td-white-right-borders cl-grey">Rooms: </td>
 						<td>{{ listing.estate_id.rooms }}</td>
-						<td class="td-white-right-borders cl-grey">Nr bai: </td>
+						<td class="td-white-right-borders cl-grey">Bathrooms: </td>
 						<td>{{ listing.estate_id.bathrooms }}</td>
 					</tr>
 					<tr scope="row">
-						<td class="td-white-right-borders cl-grey">Suprafata: </td>
+						<td class="td-white-right-borders cl-grey">Size: </td>
 						<td>{{ listing.estate_id.size|floatformat:-2 }} m&sup2;</td>
-						<td class="td-white-right-borders cl-grey">Etaj: </td>
+						<td class="td-white-right-borders cl-grey">Floor: </td>
 						<td>{{ listing.estate_id.floor }}</td>
-						<td class="td-white-right-borders cl-grey">An de finalizare: </td>
+						<td class="td-white-right-borders cl-grey">Year: </td>
 						<td>{{ listing.estate_id.year }}</td>
-						<td class="td-white-right-borders cl-grey">Distanta fata de centru: </td>
-						<td>{{ listing.estate_id.distance_to_centre|floatformat:-2 }} km</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
+		{% if user.is_authenticated %}
 		<br>
-		<span class="contact-seller">Contacteaza vanzatorul: </span>
-    <p>Scrie mesajul tau pentru {{listing.user_id.first_name}} aici.</p>
+		<p class="contact-seller">Send a message: </p>
+		<p class="contact-seller-subtitle">Write your message for {{listing.user_id.first_name}} aici.</p>
 
 		<form action="#" method="POST" class="col-sm-7 send-message-form">
 			<div class="form-group">
-				<textarea class="form-control" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
+				<textarea class="form-control" id="messageContent" rows="3" placeholder="Your message"></textarea>
 			</div>
-			<button class="btn btn-primary" id="submitMessage" type="submit" data-list="{{ listing.id }}" ><i class="fas fa-envelope send-message-icon"></i> Trimite</button>
+			<button class="btn btn-primary" id="submitMessage" type="submit" data-list="{{ listing.id }}">
+				<i class="fas fa-envelope send-message-icon"></i> Send</button>
 		</form>
+		{% endif %}
 
 	</div>
 
@@ -121,6 +108,4 @@
 
 <h5> No listing found. Please try another.</h5>
 
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}
