@@ -157,11 +157,10 @@
     }
 }
 
-.estimated {
-    color: red;
-}
-
 .listing-added-date {
     margin: 0;
     font-weight: 500;
+}
+.estimated {
+    color: red;
 }
