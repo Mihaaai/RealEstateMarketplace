@@ -47,7 +47,7 @@
 				<h4>{{listing.user_id.first_name}}</h4>
 			</a>
 
-			<small>User registrations: {{ listing.user_id.created|date:"b Y" }}</small>
+			<small>User since: {{ listing.user_id.created|date:"b Y" }}</small>
 			<br>
 
 			<!--<a href="#" class="btn btn-info">Vezi toate anunturile</a>-->
@@ -80,6 +80,8 @@
 						<td>{{ listing.estate_id.floor }}</td>
 						<td class="td-white-right-borders cl-grey">Year: </td>
 						<td>{{ listing.estate_id.year }}</td>
+						<td class="td-white-right-borders cl-grey">Partitioning: </td>
+						<td>{{ listing.estate_id.partitioning }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -87,7 +89,7 @@
 		{% if user.is_authenticated %}
 		<br>
 		<p class="contact-seller">Send a message: </p>
-		<p class="contact-seller-subtitle">Write your message for {{listing.user_id.first_name}} aici.</p>
+		<p class="contact-seller-subtitle">Write your message for {{listing.user_id.first_name}} here.</p>
 
 		<form action="#" method="POST" class="col-sm-7 send-message-form">
 			<div class="form-group">
