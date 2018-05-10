@@ -1,13 +1,22 @@
-<!-- Not really working. May be due to an issue regarding ALLOWD_HOSTS setting -->
 
-{% extends 'template.html' %}
 
-{% block title %}404 Not found{% endblock %}
+{% extends "template.html" %} {% load static %} 
+{% block title %} 404 Not found {% endblock %}
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/list-listings.css' %}" /> {% endblock %} {% block sidebar %}
+	<span style="font-size:20px;cursor:pointer" onclick="openNav()">
+	    <i class="fas fa-search"></i>
+	</span>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+	    aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	</button>
+{% endblock %} 
 
 {% block content %}
 <div>
     <h1> It seems like you got lost.</h1>
-    <a href="{%url list_listings%}">Click here to get back</a>
+    <a href="{%url 'list_listings' %}">Click here to get back</a>
 </div>
 
 {% endblock %}

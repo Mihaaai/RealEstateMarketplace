@@ -2,7 +2,7 @@
 
 <script type="text/javascript" src="{% static 'js/details-listing-functions.js' %}"></script>
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}" /> {% endblock %} {% block content %} {% if listing %}
+<link rel="stylesheet" type="text/css" href="./static/css/details.css" /> {% endblock %} {% block content %} {% if listing %}
 <div class="details-page-container">
 	<div class="buttons-container">
 		{% if user.is_authenticated %} {% if user == listing.user_id %}
