@@ -8,7 +8,7 @@ from ..models import Listing, User, Estate
 class DetailListingTest(TestCase):
     def setUp(self):
         user = User.objects.create(email="admin@maildrop.com", password="admin123",
-                                   first_name="Mihai", last_name="Ghidoveanu", phone_number="0728622410")
+                                   first_name="Mihai", last_name="Ghidoveanu", phone_number="0728434121")
         estate = Estate.objects.create(neighborhood='Aviatiei')
         Listing(title="TestListing", description="This is the listing", user_id=user, estate_id=estate).save()
 
