@@ -1,114 +1,126 @@
-.listing{
-  height:200px;
-  width:300px;
-  background-color:white;
-  margin: 20px;
-  position: relative;
-  flex-grow:1;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  box-shadow: 5px 5px 5px grey;
-  border: 1px solid grey;
-  border-radius: 10px;
-  background-image: url('https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png');
+.listing {
+    height: 200px;
+    width: 300px;
+    background-color: white;
+    margin: 20px;
+    position: relative;
+    flex-grow: 1;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 5px grey;
+    border: 1px solid grey;
+    border-radius: 10px;
+    background-image: url('https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png');
 }
 
-.container{
-  height:100%;
-  width:100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
+.container {
+    min-height: calc(100% - 111px);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
-.details-container{
-  width:100%;
-  background-color: rgba(0,0,0,0.5);
-  height:20%;
-  position:absolute;
-  transition: height 0.5s;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+.details-container {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 20%;
+    position: absolute;
+    transition: height 0.5s;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
 }
 
-.price-container{
-  position: absolute;
-  font-size:16px;
-  color: white;
-  top:50%;
-  left:50%;
-  transform: translate(-50%, -50%);
-  text-align:center;
+.price-container {
+    position: absolute;
+    font-size: 16px;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
-.listing:hover >.details-container{
+.listing:hover > .details-container {
     height: 40%;
-  }
-
-.listing:hover .neighborhood{
-  display: block;
 }
 
-.listing.True > .details-container{
-  height: 100%;
-  position: relative;
-  border-radius:8px;
+.listing:hover .neighborhood {
+    display: block;
 }
 
-.listing.True .price-container{
-  display:none;
+.listing.True > .details-container {
+    height: 100%;
+    position: relative;
+    border-radius: 8px;
 }
 
-.listing.True:hover > .details-container{
-  height: 100%;
-
+.listing.True .price-container {
+    display: none;
 }
 
-.listing.True > .details-container::after{
-  content:'CLOSED';
-  font-size: 2rem;
-  font-family: serif;
-  position: absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  color: white;
-
+.listing.True:hover > .details-container {
+    height: 100%;
 }
 
-.neighborhood{
-  display:none;
-  font-size:18px;
+.listing.True > .details-container::after {
+    content: 'CLOSED';
+    font-size: 2rem;
+    font-family: serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
 }
 
-.price::after{
-  content: ' EURO';
+.neighborhood {
+    display: none;
+    font-size: 18px;
 }
 
-.listing-filter{
-  width:100%;
-  justify-content:center;
-  border-bottom:1px solid lightgrey;
+.price::after {
+    content: ' EURO';
 }
 
-.listings-empty-content{
-  margin:auto;
+.listing-filter {
+    width: 100%;
+    justify-content: center;
+    border-bottom: 1px solid lightgrey;
 }
 
-.container{
-  height: calc(100% - 100px);
+.listings-empty-content {
+    margin: auto;
 }
 
 .paginator-container {
-  text-align: center;
+    text-align: center;
 }
 
 .paginator-nav {
-  /*margin-top: 30px;*/
-  display: inline-block;
-  margin-left: 30px;
+    /*margin-top: 30px;*/
+    display: inline-block;
+}
+
+.page-link {
+    color: black;
+}
+
+.page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+}
+.page-item.active .page-link:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: grey;
+    color: white;
+}
+
+.page-link:hover {
+    color: black;
 }
