@@ -1,6 +1,7 @@
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
 from ..forms import AddListingForm
 from ..models import Listing
@@ -10,7 +11,6 @@ import pdb
 
 class AddListingView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
-    success_url = reverse_lazy('list_listings')
     form_class = AddListingForm
     template_name = 'add_listing_template.html'
     model = Listing
@@ -20,4 +20,4 @@ class AddListingView(LoginRequiredMixin, CreateView):
         self.object.user_id = self.request.user
         self.object.save()
 
-        return super(AddListingView, self).form_valid(form)
+        return redirect('details_listing',self.object.id)

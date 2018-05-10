@@ -3,6 +3,7 @@ from ..forms import AddListingForm
 from django import forms
 from string import Template
 from django.utils.safestring import mark_safe
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 class PictureWidget(forms.widgets.ClearableFileInput):
@@ -30,9 +31,12 @@ class PictureWidget(forms.widgets.ClearableFileInput):
 
 
 		if value:
-			html = Template(html)			
-			html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
-
+			html = Template(html)	
+			# if listing has already an image uploaded, then the file is stored under a different class
+			if isinstance(value, InMemoryUploadedFile):
+				html = html.substitute(link = value.file,link_name = value.name.replace('media/',''))			
+			else:
+				html = html.substitute(link = value.url,link_name = value.url.replace('media/',''))
 
 		return mark_safe(html)
 
