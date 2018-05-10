@@ -43,10 +43,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    width: 100%;
 }
 
 .listing:hover > .details-container {
-    height: 40%;
+    height: 50%;
 }
 
 .listing:hover .neighborhood {
