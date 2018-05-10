@@ -98,7 +98,7 @@ class Message(models.Model):
     receiver_id = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='receiver')
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.message

@@ -42,7 +42,7 @@
 				{%if message.receiver_id.id == uid %}
 					<li class = "container" >
 						<p>{{message.message}}</p>
-						<span class="time-left"><i>You wrote on {{message.date}}</i> </span>
+						<span class="time-left"><i>Message sent: {{message.date|date:"H:m-d b Y"}}</i> </span>
 					</li>
 				{%else%}
 					<li class = "container darker" >
