@@ -18,5 +18,7 @@ from .ListConversationsView import ListConversationsView
 from .DetailConversationView import DetailConversationView
 from .UpdateProfileView import UpdateProfileView
 from .CloseListing import CloseListingAPI
+from .ForgotPasswordView import ForgotPasswordView
+from .ResetPasswordView import ResetPasswordView
 from . import handler404
 from . import handler500
