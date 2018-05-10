@@ -12,9 +12,18 @@
 <div>
 
 {% if conversations|length %}
-<ul class="message-box">
+<ul class="conversation-box">
 	{% for listing, users in conversations.items %}
-		<li class = "container darker">Topic: <a href="{% url 'details_listing' listing.id %}"> {{ listing.title}} </a></li>
+		<li class = "listing-container darker">
+			<img src="{% if listing.estate_id.image %}
+						{{ listing.estate_id.image.url }}
+					  {% else %}
+						  https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png
+					  {% endif %}">
+
+			Listing: <a href="{% url 'details_listing' listing.id %}"> {{ listing.title}} </a><br>
+			<span class="time-left"> <i>created on: {{listing.created}}</i></span>
+		</li>
 		<ul>
 			{% for item in users %}
 			<li class="container"><a href="{%url 'details_conversation' pk=listing.id user_id=item.id%}">View conversation</a> with  {{item.first_name}} {{item.last_name}}</li>
