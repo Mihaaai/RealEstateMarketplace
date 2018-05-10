@@ -26,7 +26,7 @@ ul {
     padding:30px;
     border:3px solid #f1f1f1;
     overflow-y: scroll;
-    height:600px;
+    height:70%;
     max-width:80%;
     margin-left: auto;
     margin-right: auto;
@@ -106,5 +106,9 @@ ul {
     float: left;
     color: #999;
     font-size:80%;
+}
+
+.conversation-wrapper{
+    height: calc(100% - 100px);
 }
 

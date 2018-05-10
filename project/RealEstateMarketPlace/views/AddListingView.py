@@ -14,10 +14,14 @@ class AddListingView(LoginRequiredMixin, CreateView):
     form_class = AddListingForm
     template_name = 'add_listing_template.html'
     model = Listing
+    success_url = 'detail_listing'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user_id = self.request.user
         self.object.save()
 
-        return redirect('details_listing',self.object.id)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('details_listing', args=[self.object.id])

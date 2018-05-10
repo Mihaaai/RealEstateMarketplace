@@ -35,7 +35,7 @@
 
 {% block content %}
 		
-	<div >
+	<div class='conversation-wrapper'>
 	{% if conversation|length %}
 		<ul class = "message-box">
 			{% for message in conversation %}
@@ -54,7 +54,6 @@
 		</ul>
 	
 	<form action="#" method="POST" class="col-sm-7 send-message-form writer-form">
-			<br/><br/><br/>
 		<div class="form-group">
 			<textarea class="form-control writer-box" id="messageContent" rows="3" placeholder="Mesajul tau"></textarea>
 		</div>
