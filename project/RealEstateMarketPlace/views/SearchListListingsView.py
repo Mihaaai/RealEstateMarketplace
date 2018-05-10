@@ -15,6 +15,7 @@ class SearchListListingsView(ListListingsView):
         minYear = self.request.GET.get('minYear') if self.request.GET.get('minYear') else 0
         maxYear = self.request.GET.get('maxYear') if self.request.GET.get('maxYear') else 9999
         neighborhood = self.request.GET.get('neighborhood') if self.request.GET.get('neighborhood') else ""
+        neighborhood = '' if neighborhood == 'All' else neighborhood
         search_keyword = self.request.GET.get('q') if self.request.GET.get('q') else ""
 
         query = Listing.objects.filter(is_closed=False) \
