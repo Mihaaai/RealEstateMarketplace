@@ -50,8 +50,9 @@ class UpdateListingView(LoginRequiredMixin, UpdateView):
         else:
             return redirect('list_listings')
 
+    # form_valid by default redirects to succes_url, so redirecting in this method is safe
     def form_valid(self, form):
         self.object = form.save()
         self.object.save()
-        return super(UpdateListingView, self).form_valid(form)
+        return redirect('details_listing', pk = self.object.id)
 
