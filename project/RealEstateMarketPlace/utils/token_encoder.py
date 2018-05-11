@@ -19,7 +19,7 @@ def encode_reset_token(email):
 
 
 def read_key_from_file():
-    f = open('/var/www/server.conf', 'r')
+    f = open('server.conf', 'r')
     key = f.readline()
     f.close()
     return key

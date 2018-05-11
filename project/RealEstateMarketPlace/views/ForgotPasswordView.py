@@ -59,7 +59,7 @@ class ForgotPasswordView(View):
             reset_token = str(reset_token)
             reset_token = reset_token[2:len(reset_token) - 1]
 
-            with open('/var/www/smtp.conf', 'r') as f:
+            with open('smtp.conf', 'r') as f:
                 server_email = f.readline().strip()
                 server_pass = f.readline().strip()
 

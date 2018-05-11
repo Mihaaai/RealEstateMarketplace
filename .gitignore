@@ -103,7 +103,12 @@ ENV/
 # database extensions
 *.sqlite3
 /project/RealEstateMarketPlace/migrations
+/project/RealEstateMarketPlace/static/model
 /project/media/
 other_stuff/
 Pipfile
 Pipfile.lock
+
+server.conf
+smtp.conf
+
